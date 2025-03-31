@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,7 +11,7 @@ using MaterialSkin.Controls;
 
 namespace Car_Rental_System
 {
-    internal class Order : Entity
+    internal class Order : Entity, IEntity
     {
         public override string FileName => "orders.txt";
         public Car? RentedCar { get; set; }
@@ -21,11 +22,12 @@ namespace Car_Rental_System
         public Order()
         {
             RentedCar = null;
-            RentalDays = null;
+            RentalDays = 0;
             PassportDetails = string.Empty;
             StatusOrder = "Pending";
             RejectionReason = string.Empty;
         }
+
         public Order(Guid id, Car rentedCar, int rentalDays, string passportDetails, string rejectionReason, string status = "Pending") : base(id)
         {
             RentedCar = rentedCar;
@@ -42,7 +44,7 @@ namespace Car_Rental_System
         }
         public override string Format()
         {
-            return $"[{base.Format()}][{RentedCar.Model}][{PassportDetails}][{RentalDays}][{StatusOrder}][{RejectionReason}]";
+            return $"[{base.Format()}][{RentedCar.Model}][{RentedCar.Year}][{PassportDetails}][{RentalDays}][{StatusOrder}][{RejectionReason}]";
         }
 
         public virtual void Parse(string record)
@@ -52,39 +54,51 @@ namespace Car_Rental_System
                 throw new ArgumentException("Record cannot be null or empty.", nameof(record));
             }
 
-            var parts = record.Trim().Split(new[] { "][" }, StringSplitOptions.None);
-            if (parts.Length != 6)
-            {
-                throw new FormatException("Invalid record format.");
-            }
+            var parts = record.Trim().TrimStart('[').TrimEnd(']').Split(new[] { "][" }, StringSplitOptions.None);
 
-            parts[0] = parts[0].TrimStart('[');
-            parts[5] = parts[5].TrimEnd(']');
+            if (parts.Length != 7)
+            {
+                throw new FormatException($"Invalid record format: {record}");
+            }
 
             if (!Guid.TryParse(parts[0], out Guid id))
             {
-                throw new FormatException("Invalid ID format.");
+                throw new FormatException("Invalid Order ID format.");
             }
 
-            if (!Guid.TryParse(parts[1], out Guid carId))
-            {
-                throw new FormatException("Invalid Car ID format.");
-            }
+            string carModel = parts[1];
+            string carYear = parts[2];
+            string passportDetails = parts[3];
 
-            if (!int.TryParse(parts[2], out int rentalDays))
+            if (!int.TryParse(parts[4], out int rentalDays))
             {
                 throw new FormatException("Invalid rental days format.");
             }
 
-            string passportDetails = parts[3];
-            string rejectionReason = parts[4];
             string statusOrder = parts[5];
+            string rejectionReason = parts[6].Trim();
 
-            RentedCar = new Car { Id = carId };
+            if (string.IsNullOrWhiteSpace(rejectionReason))
+            {
+                rejectionReason = "N/A";
+            }
+            RentedCar = new Car
+            {
+                Model = carModel,
+                Year = int.TryParse(carYear, out int year) ? year : 0
+            };
             RentalDays = rentalDays;
             PassportDetails = passportDetails;
-            RejectionReason = rejectionReason;
             StatusOrder = statusOrder;
+            RejectionReason = rejectionReason;
+            Id = id;
         }
-}
+
+        public bool Search(string searchString)
+        {
+            return RejectionReason!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   RentedCar.Model!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   PassportDetails!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+    }
 }

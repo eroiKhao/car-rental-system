@@ -7,31 +7,35 @@ using System.IO;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Xml.Linq;
 
 namespace Car_Rental_System
 {
-    internal class Car : Entity
+    internal class Car : Entity, IEntity
     {
         public override string FileName => "cars.txt";
         public string? Model { get; set; }
         public string? CarStatus { get; set; }
+        public int Year { get; set; }
         public Car()
         {
-            Model = string.Empty;
-            CarStatus = string.Empty;
+            Model = "";
+            CarStatus = "";
+            Year = 0;
         }
-        public Car(Guid id, string model, string status) : base(id)
+        public Car(Guid id, string model, string status, int year) : base(id)
         {
             Model = model;
             CarStatus = status;
+            Year = year;
         }
         public new bool IsValid()
         {
-            return base.IsValid() && !string.IsNullOrEmpty(Model) && !string.IsNullOrEmpty(CarStatus);
+            return base.IsValid() && !string.IsNullOrEmpty(Model) && !string.IsNullOrEmpty(CarStatus) && Year > 0;
         }
         public override string Format()
         {
-            return $"[{base.Format()}][{Model}][{CarStatus}]";
+            return $"[{base.Format()}][{Model}][{CarStatus}][{Year}]";
         }
         public virtual void Parse(string record)
         {
@@ -42,7 +46,7 @@ namespace Car_Rental_System
 
             var parts = record.Trim('[', ']').Split(new[] { "][" }, StringSplitOptions.None);
 
-            if (parts.Length != 3)
+            if (parts.Length != 4)
             {
                 throw new FormatException("Invalid record format.");
             }
@@ -55,6 +59,21 @@ namespace Car_Rental_System
             Id = id;
             Model = parts[1];
             CarStatus = parts[2];
+
+            // Перевірка року
+            if (!int.TryParse(parts[3], out int year) || year <= 0)
+            {
+                throw new FormatException("Invalid year format.");
+            }
+
+            Year = year;
+        }
+
+        public bool Search(string searchString)
+        {
+            return Model!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   CarStatus!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   Year.ToString().IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

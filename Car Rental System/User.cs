@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Car_Rental_System
 {
-    internal class User : Entity
+    internal class User : Entity, IEntity
     {
         public override string FileName => "user.txt";
         public string? Name { get; set; }
@@ -52,6 +53,11 @@ namespace Car_Rental_System
             Id = id;
             Name = parts[1];
             Email = parts[2];
+        }
+        public bool Search (string searchString)
+        {
+            return Name!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+            Email!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

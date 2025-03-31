@@ -10,11 +10,11 @@ namespace Car_Rental_System
 {
     internal static class FileManager
     {
-        public static void Add(Entity entity)
+        public static void WriteToFile(Entity entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ArgumentNullException("Entity should not be null");
             }
 
             if (!entity.IsValid())
@@ -29,46 +29,5 @@ namespace Car_Rental_System
                 writer.WriteLine(record);
             }
         }
-
-        public static List<Entity> Read(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("File does not exist", path);
-            }
-
-            // Читаємо всі рядки з файлу
-            var lines = File.ReadAllLines(path);
-
-            if (lines.Length == 0)
-            {
-                MessageBox.Show("The file is empty.");
-                return new List<Entity>();
-            }
-
-            var results = new List<Entity>();
-
-            foreach (var line in lines)
-            {
-                var entity = new Car();
-                try
-                {
-                    entity.Parse(line);
-                    results.Add(entity);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error parsing line: {line}. Error: {ex.Message}", "Parse Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-            return results;
-        }
-
     }
 }

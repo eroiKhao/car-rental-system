@@ -55,8 +55,11 @@
     <Compile Include="Admin.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="DataManager.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="FilterDelegate.cs" />
+    <Compile Include="IEntity.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -92,6 +96,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-search-501.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filter.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
