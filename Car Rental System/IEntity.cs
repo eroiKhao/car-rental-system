@@ -10,5 +10,7 @@ namespace Car_Rental_System
     {
         public Guid Id { get; set; }
         public bool Search(string searchString);
+        public void Parse(string record);
+        public bool IsValid();
     }
 }

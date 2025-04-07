@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace Car_Rental_System
 {
-    internal class Car : Entity, IEntity
+    internal class Car : Entity
     {
         public override string FileName => "cars.txt";
         public string? Model { get; set; }
@@ -37,7 +37,7 @@ namespace Car_Rental_System
         {
             return $"[{base.Format()}][{Model}][{CarStatus}][{Year}]";
         }
-        public virtual void Parse(string record)
+        public override void Parse(string record)
         {
             if (string.IsNullOrWhiteSpace(record))
             {
@@ -60,7 +60,6 @@ namespace Car_Rental_System
             Model = parts[1];
             CarStatus = parts[2];
 
-            // Перевірка року
             if (!int.TryParse(parts[3], out int year) || year <= 0)
             {
                 throw new FormatException("Invalid year format.");
@@ -68,8 +67,7 @@ namespace Car_Rental_System
 
             Year = year;
         }
-
-        public bool Search(string searchString)
+        public override bool Search(string searchString)
         {
             return Model!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
                    CarStatus!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||

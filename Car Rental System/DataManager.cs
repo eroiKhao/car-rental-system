@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Car_Rental_System
 {
-    internal class DataManager
+    internal class DataManager<T> where T : IEntity
     {
-        public IEnumerable<IEntity> Entities { get; private set; } = new List<IEntity>();
-        public IEntity? this[Guid id]
+        public IEnumerable<T> Entities { get; private set; } = new List<T>();
+        public T this[Guid id]
         {
             get
             {
-                IEntity? entity = null;
+                T entity = default;
                 foreach (var item in Entities)
                 {
                     if (item.Id == id)
@@ -23,11 +23,11 @@ namespace Car_Rental_System
                 return entity;
             }
         }
-        public void Add(IEntity entity)
+        public void Add(T entity)
         {
             Entities = Entities.Append(entity);
         }
-        public IEnumerable<IEntity> Search(string searchString)
+        public IEnumerable<T> Search(string searchString)
         {
             foreach (var entity in Entities)
             {
@@ -37,7 +37,7 @@ namespace Car_Rental_System
                 }
             }
         }
-        public IEnumerable<IEntity> Filter(FilterDelegate filter)
+        public IEnumerable<T> Filter(FilterDelegate<T> filter)
         {
             foreach (var entity in Entities)
             {

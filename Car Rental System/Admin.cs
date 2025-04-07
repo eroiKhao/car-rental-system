@@ -29,7 +29,6 @@ namespace Car_Rental_System
         {
             return $"[{base.Format()}][{Role}]";
         }
-
         public new void Parse(string record)
         {
             base.Parse(record);

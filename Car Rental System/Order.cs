@@ -11,7 +11,7 @@ using MaterialSkin.Controls;
 
 namespace Car_Rental_System
 {
-    internal class Order : Entity, IEntity
+    internal class Order : Entity
     {
         public override string FileName => "orders.txt";
         public Car? RentedCar { get; set; }
@@ -47,7 +47,7 @@ namespace Car_Rental_System
             return $"[{base.Format()}][{RentedCar.Model}][{RentedCar.Year}][{PassportDetails}][{RentalDays}][{StatusOrder}][{RejectionReason}]";
         }
 
-        public virtual void Parse(string record)
+        public override void Parse(string record)
         {
             if (string.IsNullOrWhiteSpace(record))
             {
@@ -93,8 +93,7 @@ namespace Car_Rental_System
             RejectionReason = rejectionReason;
             Id = id;
         }
-
-        public bool Search(string searchString)
+        public override bool Search(string searchString)
         {
             return RejectionReason!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
                    RentedCar.Model!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||

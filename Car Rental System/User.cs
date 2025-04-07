@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Car_Rental_System
 {
-    internal class User : Entity, IEntity
+    internal class User : Entity
     {
         public override string FileName => "user.txt";
         public string? Name { get; set; }
@@ -31,7 +31,7 @@ namespace Car_Rental_System
         {
             return $"[{base.Format()}][{Name}][{Email}]";
         }
-        public virtual void Parse(string record)
+        public override void Parse(string record)
         {
             if (string.IsNullOrWhiteSpace(record))
             {
@@ -54,7 +54,7 @@ namespace Car_Rental_System
             Name = parts[1];
             Email = parts[2];
         }
-        public bool Search (string searchString)
+        public override bool Search (string searchString)
         {
             return Name!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
             Email!.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0;

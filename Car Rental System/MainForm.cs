@@ -16,12 +16,12 @@ namespace Car_Rental_System
 {
     public partial class MainForm : MaterialForm
     {
-        private readonly DataManager dataManager;
+        private readonly DataManager<Order> dataManager;
         public MainForm()
         {
             InitializeComponent();
 
-            dataManager = new DataManager();
+            dataManager = new DataManager<Order>();
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -106,54 +106,44 @@ namespace Car_Rental_System
                 MessageBox.Show($"Error processing the rental: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void btnClient_Click_1(object sender, EventArgs e)
         {
             LoadCarsToListBox();
             panelClient.Visible = true;
             panelClient.BringToFront();
         }
-
         private void btnBackClient_Click(object sender, EventArgs e)
         {
             panelClient.Visible = false;
             panelAdmin.Visible = false;
         }
-
         private void btnPayment_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnBackAdmin_Click(object sender, EventArgs e)
         {
             panelAdmin.Visible = false;
             panelClient.Visible = false;
         }
-
         private void btnAdmin_Click(object sender, EventArgs e)
         {
             panelAdmin.Visible = true;
             panelClient.Visible = false;
             LoadOrdersToListView();
         }
-
         private void btnApprove_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnReject_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnDamaged_Click(object sender, EventArgs e)
         {
 
         }
-
         private void searchButton_Click(object sender, EventArgs e)
         {
             try
@@ -188,7 +178,7 @@ namespace Car_Rental_System
                         item.SubItems.Add(orderEntity.PassportDetails);
                         item.SubItems.Add(orderEntity.RentalDays.ToString());
                         item.SubItems.Add(orderEntity.StatusOrder);
-                        item.SubItems.Add(string.IsNullOrWhiteSpace(orderEntity.RejectionReason) ? "N/A" : orderEntity.RejectionReason); // Причина відмови
+                        item.SubItems.Add(string.IsNullOrWhiteSpace(orderEntity.RejectionReason) ? "N/A" : orderEntity.RejectionReason);
                         item.SubItems.Add(orderEntity.Id.ToString());
                         
                         orderListView.Items.Add(item);
@@ -200,7 +190,6 @@ namespace Car_Rental_System
                 MaterialMessageBox.Show(ex.Message);
             }
         }
-
         private void filterButton_Click(object sender, EventArgs e)
         {
             try
@@ -254,8 +243,6 @@ namespace Car_Rental_System
                 MaterialMessageBox.Show(ex.Message);
             }
         }
-
-
         private void orderListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (orderListView.SelectedItems.Count > 0)
@@ -283,14 +270,13 @@ namespace Car_Rental_System
             {
                 orderListView.Items.Clear();
 
-                var orders = File.ReadAllLines("orders.txt");
+                var orders = FileManager.GetEntities<Order>("orders.txt");
 
-                foreach (var line in orders)
+                foreach (var order in orders)
                 {
-                    var order = new Order();
-                    order.Parse(line);
-                    var item = new ListViewItem(orderListView.Items.Count + 1 + "");
+                    dataManager.Add(order);
 
+                    var item = new ListViewItem((orderListView.Items.Count + 1).ToString());
                     item.SubItems.Add(order.RentedCar.Model);
                     item.SubItems.Add(order.RentedCar.Year.ToString());
                     item.SubItems.Add(order.PassportDetails);
@@ -298,7 +284,6 @@ namespace Car_Rental_System
                     item.SubItems.Add(order.StatusOrder);
                     item.SubItems.Add(string.IsNullOrEmpty(order.RejectionReason) ? "N/A" : order.RejectionReason);
                     item.SubItems.Add(order.Id.ToString());
-
 
                     orderListView.Items.Add(item);
                 }
@@ -320,35 +305,13 @@ namespace Car_Rental_System
 
                 listBoxCars.Items.Clear();
 
-                var lines = File.ReadAllLines("cars.txt");
+                var cars = FileManager.GetEntities<Car>("cars.txt");
 
-                foreach (var line in lines)
+                foreach (var car in cars)
                 {
-                    var parts = line.Trim('[', ']').Split(new[] { "][" }, StringSplitOptions.None);
-
-                    if (parts.Length != 4)
-                    {
-                        MessageBox.Show($"Invalid car data format: {line}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        continue;
-                    }
-
-                    if (!Guid.TryParse(parts[0], out Guid carId))
-                    {
-                        MessageBox.Show($"Invalid car ID format: {parts[0]}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        continue;
-                    }
-
-                    var model = parts[1].Trim();
-                    var status = parts[2].Trim();
-                    if (!int.TryParse(parts[3].Trim(), out int year))
-                    {
-                        MessageBox.Show($"Invalid car year format: {parts[3]}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        continue;
-                    }
-
                     var item = new MaterialSkin.MaterialListBoxItem
                     {
-                        Text = $"{model} | {year} | Status: {status}"
+                        Text = $"{car.Model} | {car.Year} | Status: {car.CarStatus}"
                     };
 
                     listBoxCars.Items.Add(item);

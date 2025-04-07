@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Car_Rental_System
 {
-    internal delegate bool FilterDelegate(IEntity entity);
+    internal delegate bool FilterDelegate<T>(T entity) where T : IEntity;
 }

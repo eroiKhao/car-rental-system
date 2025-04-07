@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Car_Rental_System
 {
-    internal class Entity
+    internal abstract class Entity : IEntity
     {
         public virtual string FileName { get; }
         public Guid Id { get; set; }
@@ -26,6 +26,7 @@ namespace Car_Rental_System
         {
             return Id.ToString();
         }
-        public virtual void Parse(string record) { }
+        public abstract void Parse(string record);
+        public abstract bool Search(string searchString);
     }
 }
