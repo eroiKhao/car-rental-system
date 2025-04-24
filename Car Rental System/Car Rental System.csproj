@@ -58,8 +58,8 @@
     <Compile Include="DataManager.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="FilterDelegate.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="LinqExtensions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

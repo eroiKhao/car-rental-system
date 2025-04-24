@@ -43,9 +43,25 @@ namespace Car_Rental_System
             this.txtRentalDays = new MaterialSkin.Controls.MaterialTextBox();
             this.listBoxCars = new MaterialSkin.Controls.MaterialListBox();
             this.panelAdmin = new System.Windows.Forms.Panel();
+            this.selectedItemTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.yearToTextBox = new MaterialSkin.Controls.MaterialTextBox();
+            this.yearFromTextBox = new MaterialSkin.Controls.MaterialTextBox();
+            this.searchButton = new MaterialSkin.Controls.MaterialButton();
+            this.searchTextBox = new MaterialSkin.Controls.MaterialTextBox();
             this.labelCars = new MaterialSkin.Controls.MaterialLabel();
             this.orderListView = new MaterialSkin.Controls.MaterialListView();
             this.numberColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.modelColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.rejectionColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.idColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listBoxAdminCars = new MaterialSkin.Controls.MaterialListBox();
             this.txtRejectionReason = new MaterialSkin.Controls.MaterialTextBox();
             this.btnDamaged = new MaterialSkin.Controls.MaterialButton();
@@ -53,23 +69,16 @@ namespace Car_Rental_System
             this.btnApprove = new MaterialSkin.Controls.MaterialButton();
             this.btnBackAdmin = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
-            this.searchTextBox = new MaterialSkin.Controls.MaterialTextBox();
-            this.modelColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.rejectionColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.yearFromTextBox = new MaterialSkin.Controls.MaterialTextBox();
-            this.yearToTextBox = new MaterialSkin.Controls.MaterialTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.filterButton = new MaterialSkin.Controls.MaterialButton();
-            this.searchButton = new MaterialSkin.Controls.MaterialButton();
-            this.selectedItemTextBox = new System.Windows.Forms.TextBox();
-            this.idColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.sortBtn = new MaterialSkin.Controls.MaterialButton();
+            this.prevBtn = new MaterialSkin.Controls.MaterialButton();
+            this.nextBtn = new MaterialSkin.Controls.MaterialButton();
+            this.pageNumTextBox = new System.Windows.Forms.TextBox();
+            this.countTextBox = new System.Windows.Forms.TextBox();
+            this.maxDaysTextBox = new System.Windows.Forms.TextBox();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
+            this.loadSourceBtn = new MaterialSkin.Controls.MaterialButton();
+            this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panelClient.SuspendLayout();
             this.panelAdmin.SuspendLayout();
             this.SuspendLayout();
@@ -128,7 +137,7 @@ namespace Car_Rental_System
             this.panelClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelClient.Location = new System.Drawing.Point(3, 64);
             this.panelClient.Name = "panelClient";
-            this.panelClient.Size = new System.Drawing.Size(1333, 495);
+            this.panelClient.Size = new System.Drawing.Size(1357, 538);
             this.panelClient.TabIndex = 2;
             this.panelClient.Visible = false;
             // 
@@ -195,7 +204,7 @@ namespace Car_Rental_System
             this.txtPassportDetails.AnimateReadOnly = false;
             this.txtPassportDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPassportDetails.Depth = 0;
-            this.txtPassportDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPassportDetails.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtPassportDetails.Hint = "Passport details";
             this.txtPassportDetails.LeadingIcon = null;
             this.txtPassportDetails.Location = new System.Drawing.Point(20, 109);
@@ -253,7 +262,7 @@ namespace Car_Rental_System
             this.txtRentalDays.AnimateReadOnly = false;
             this.txtRentalDays.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRentalDays.Depth = 0;
-            this.txtRentalDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtRentalDays.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtRentalDays.Hint = "Rental period";
             this.txtRentalDays.LeadingIcon = null;
             this.txtRentalDays.Location = new System.Drawing.Point(20, 178);
@@ -282,8 +291,17 @@ namespace Car_Rental_System
             // 
             // panelAdmin
             // 
+            this.panelAdmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelAdmin.Controls.Add(this.loadSourceBtn);
+            this.panelAdmin.Controls.Add(this.materialLabel4);
+            this.panelAdmin.Controls.Add(this.materialLabel1);
+            this.panelAdmin.Controls.Add(this.maxDaysTextBox);
+            this.panelAdmin.Controls.Add(this.countTextBox);
+            this.panelAdmin.Controls.Add(this.pageNumTextBox);
+            this.panelAdmin.Controls.Add(this.nextBtn);
+            this.panelAdmin.Controls.Add(this.prevBtn);
+            this.panelAdmin.Controls.Add(this.sortBtn);
             this.panelAdmin.Controls.Add(this.selectedItemTextBox);
-            this.panelAdmin.Controls.Add(this.filterButton);
             this.panelAdmin.Controls.Add(this.label4);
             this.panelAdmin.Controls.Add(this.label3);
             this.panelAdmin.Controls.Add(this.label1);
@@ -303,16 +321,132 @@ namespace Car_Rental_System
             this.panelAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelAdmin.Location = new System.Drawing.Point(3, 64);
             this.panelAdmin.Name = "panelAdmin";
-            this.panelAdmin.Size = new System.Drawing.Size(1333, 495);
+            this.panelAdmin.Size = new System.Drawing.Size(1357, 538);
             this.panelAdmin.TabIndex = 9;
             this.panelAdmin.Visible = false;
+            // 
+            // selectedItemTextBox
+            // 
+            this.selectedItemTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.selectedItemTextBox.Enabled = false;
+            this.selectedItemTextBox.Location = new System.Drawing.Point(-5, 433);
+            this.selectedItemTextBox.Name = "selectedItemTextBox";
+            this.selectedItemTextBox.Size = new System.Drawing.Size(696, 22);
+            this.selectedItemTextBox.TabIndex = 19;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(493, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 16);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Year";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(584, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 16);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "To";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(382, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 16);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "From";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(501, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(11, 16);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "-";
+            // 
+            // yearToTextBox
+            // 
+            this.yearToTextBox.AnimateReadOnly = false;
+            this.yearToTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.yearToTextBox.Depth = 0;
+            this.yearToTextBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.yearToTextBox.LeadingIcon = null;
+            this.yearToTextBox.Location = new System.Drawing.Point(531, 26);
+            this.yearToTextBox.MaxLength = 50;
+            this.yearToTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.yearToTextBox.Multiline = false;
+            this.yearToTextBox.Name = "yearToTextBox";
+            this.yearToTextBox.Size = new System.Drawing.Size(111, 50);
+            this.yearToTextBox.TabIndex = 12;
+            this.yearToTextBox.Text = "";
+            this.yearToTextBox.TrailingIcon = null;
+            // 
+            // yearFromTextBox
+            // 
+            this.yearFromTextBox.AnimateReadOnly = false;
+            this.yearFromTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.yearFromTextBox.Depth = 0;
+            this.yearFromTextBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.yearFromTextBox.LeadingIcon = null;
+            this.yearFromTextBox.Location = new System.Drawing.Point(341, 22);
+            this.yearFromTextBox.MaxLength = 50;
+            this.yearFromTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.yearFromTextBox.Multiline = false;
+            this.yearFromTextBox.Name = "yearFromTextBox";
+            this.yearFromTextBox.Size = new System.Drawing.Size(128, 50);
+            this.yearFromTextBox.TabIndex = 11;
+            this.yearFromTextBox.Text = "";
+            this.yearFromTextBox.TrailingIcon = null;
+            // 
+            // searchButton
+            // 
+            this.searchButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.searchButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.searchButton.Depth = 0;
+            this.searchButton.HighEmphasis = true;
+            this.searchButton.Icon = global::Car_Rental_System.Properties.Resources.icons8_search_501;
+            this.searchButton.Location = new System.Drawing.Point(693, 30);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.searchButton.MouseState = MaterialSkin.MouseState.HOVER;
+            this.searchButton.Name = "searchButton";
+            this.searchButton.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.searchButton.Size = new System.Drawing.Size(64, 36);
+            this.searchButton.TabIndex = 10;
+            this.searchButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.searchButton.UseAccentColor = false;
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.AnimateReadOnly = false;
+            this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchTextBox.Depth = 0;
+            this.searchTextBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.searchTextBox.Hint = "Seacrh for order";
+            this.searchTextBox.LeadingIcon = null;
+            this.searchTextBox.Location = new System.Drawing.Point(20, 17);
+            this.searchTextBox.MaxLength = 50;
+            this.searchTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.searchTextBox.Multiline = false;
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(287, 50);
+            this.searchTextBox.TabIndex = 9;
+            this.searchTextBox.Text = "";
+            this.searchTextBox.TrailingIcon = null;
             // 
             // labelCars
             // 
             this.labelCars.AutoSize = true;
             this.labelCars.Depth = 0;
             this.labelCars.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.labelCars.Location = new System.Drawing.Point(1204, 0);
+            this.labelCars.Location = new System.Drawing.Point(1297, 12);
             this.labelCars.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelCars.Name = "labelCars";
             this.labelCars.Size = new System.Drawing.Size(33, 19);
@@ -336,13 +470,13 @@ namespace Car_Rental_System
             this.orderListView.Depth = 0;
             this.orderListView.FullRowSelect = true;
             this.orderListView.HideSelection = false;
-            this.orderListView.Location = new System.Drawing.Point(20, 12);
+            this.orderListView.Location = new System.Drawing.Point(3, 149);
             this.orderListView.MinimumSize = new System.Drawing.Size(200, 100);
             this.orderListView.MouseLocation = new System.Drawing.Point(-1, -1);
             this.orderListView.MouseState = MaterialSkin.MouseState.OUT;
             this.orderListView.Name = "orderListView";
             this.orderListView.OwnerDraw = true;
-            this.orderListView.Size = new System.Drawing.Size(715, 353);
+            this.orderListView.Size = new System.Drawing.Size(902, 268);
             this.orderListView.TabIndex = 7;
             this.orderListView.UseCompatibleStateImageBehavior = false;
             this.orderListView.View = System.Windows.Forms.View.Details;
@@ -351,148 +485,6 @@ namespace Car_Rental_System
             // numberColumn
             // 
             this.numberColumn.Text = "#";
-            // 
-            // listBoxAdminCars
-            // 
-            this.listBoxAdminCars.BackColor = System.Drawing.Color.White;
-            this.listBoxAdminCars.BorderColor = System.Drawing.Color.LightGray;
-            this.listBoxAdminCars.Depth = 0;
-            this.listBoxAdminCars.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.listBoxAdminCars.Location = new System.Drawing.Point(1152, 22);
-            this.listBoxAdminCars.MouseState = MaterialSkin.MouseState.HOVER;
-            this.listBoxAdminCars.Name = "listBoxAdminCars";
-            this.listBoxAdminCars.SelectedIndex = -1;
-            this.listBoxAdminCars.SelectedItem = null;
-            this.listBoxAdminCars.Size = new System.Drawing.Size(549, 287);
-            this.listBoxAdminCars.TabIndex = 6;
-            // 
-            // txtRejectionReason
-            // 
-            this.txtRejectionReason.AnimateReadOnly = false;
-            this.txtRejectionReason.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtRejectionReason.Depth = 0;
-            this.txtRejectionReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.txtRejectionReason.Hint = "Rejection reason";
-            this.txtRejectionReason.LeadingIcon = null;
-            this.txtRejectionReason.Location = new System.Drawing.Point(324, 406);
-            this.txtRejectionReason.MaxLength = 50;
-            this.txtRejectionReason.MouseState = MaterialSkin.MouseState.OUT;
-            this.txtRejectionReason.Multiline = false;
-            this.txtRejectionReason.Name = "txtRejectionReason";
-            this.txtRejectionReason.Size = new System.Drawing.Size(287, 50);
-            this.txtRejectionReason.TabIndex = 5;
-            this.txtRejectionReason.Text = "";
-            this.txtRejectionReason.TrailingIcon = null;
-            // 
-            // btnDamaged
-            // 
-            this.btnDamaged.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDamaged.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnDamaged.Depth = 0;
-            this.btnDamaged.HighEmphasis = true;
-            this.btnDamaged.Icon = null;
-            this.btnDamaged.Location = new System.Drawing.Point(1175, 329);
-            this.btnDamaged.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnDamaged.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnDamaged.Name = "btnDamaged";
-            this.btnDamaged.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnDamaged.Size = new System.Drawing.Size(158, 36);
-            this.btnDamaged.TabIndex = 4;
-            this.btnDamaged.Text = "Mark as Damaged";
-            this.btnDamaged.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnDamaged.UseAccentColor = false;
-            this.btnDamaged.UseVisualStyleBackColor = true;
-            this.btnDamaged.Click += new System.EventHandler(this.btnDamaged_Click);
-            // 
-            // btnReject
-            // 
-            this.btnReject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnReject.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnReject.Depth = 0;
-            this.btnReject.HighEmphasis = true;
-            this.btnReject.Icon = null;
-            this.btnReject.Location = new System.Drawing.Point(630, 411);
-            this.btnReject.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnReject.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnReject.Name = "btnReject";
-            this.btnReject.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnReject.Size = new System.Drawing.Size(74, 36);
-            this.btnReject.TabIndex = 3;
-            this.btnReject.Text = "Reject";
-            this.btnReject.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnReject.UseAccentColor = false;
-            this.btnReject.UseVisualStyleBackColor = true;
-            this.btnReject.Click += new System.EventHandler(this.btnReject_Click);
-            // 
-            // btnApprove
-            // 
-            this.btnApprove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnApprove.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnApprove.Depth = 0;
-            this.btnApprove.HighEmphasis = true;
-            this.btnApprove.Icon = null;
-            this.btnApprove.Location = new System.Drawing.Point(214, 411);
-            this.btnApprove.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnApprove.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnApprove.Name = "btnApprove";
-            this.btnApprove.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnApprove.Size = new System.Drawing.Size(87, 36);
-            this.btnApprove.TabIndex = 2;
-            this.btnApprove.Text = "Approve";
-            this.btnApprove.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnApprove.UseAccentColor = false;
-            this.btnApprove.UseVisualStyleBackColor = true;
-            this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
-            // 
-            // btnBackAdmin
-            // 
-            this.btnBackAdmin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBackAdmin.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnBackAdmin.Depth = 0;
-            this.btnBackAdmin.HighEmphasis = true;
-            this.btnBackAdmin.Icon = null;
-            this.btnBackAdmin.Location = new System.Drawing.Point(37, 411);
-            this.btnBackAdmin.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnBackAdmin.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnBackAdmin.Name = "btnBackAdmin";
-            this.btnBackAdmin.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnBackAdmin.Size = new System.Drawing.Size(64, 36);
-            this.btnBackAdmin.TabIndex = 1;
-            this.btnBackAdmin.Text = "Back";
-            this.btnBackAdmin.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnBackAdmin.UseAccentColor = false;
-            this.btnBackAdmin.UseVisualStyleBackColor = true;
-            this.btnBackAdmin.Click += new System.EventHandler(this.btnBackAdmin_Click);
-            // 
-            // materialLabel3
-            // 
-            this.materialLabel3.AutoSize = true;
-            this.materialLabel3.Depth = 0;
-            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel3.Location = new System.Drawing.Point(545, 191);
-            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel3.Name = "materialLabel3";
-            this.materialLabel3.Size = new System.Drawing.Size(123, 19);
-            this.materialLabel3.TabIndex = 4;
-            this.materialLabel3.Text = "Choose your role:";
-            // 
-            // searchTextBox
-            // 
-            this.searchTextBox.AnimateReadOnly = false;
-            this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.searchTextBox.Depth = 0;
-            this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.searchTextBox.Hint = "Seacrh for order";
-            this.searchTextBox.LeadingIcon = null;
-            this.searchTextBox.Location = new System.Drawing.Point(749, 22);
-            this.searchTextBox.MaxLength = 50;
-            this.searchTextBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.searchTextBox.Multiline = false;
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(287, 50);
-            this.searchTextBox.TabIndex = 9;
-            this.searchTextBox.Text = "";
-            this.searchTextBox.TrailingIcon = null;
             // 
             // modelColumn
             // 
@@ -524,132 +516,278 @@ namespace Car_Rental_System
             this.rejectionColumn.Text = "Rejection Reason";
             this.rejectionColumn.Width = 132;
             // 
-            // yearFromTextBox
-            // 
-            this.yearFromTextBox.AnimateReadOnly = false;
-            this.yearFromTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.yearFromTextBox.Depth = 0;
-            this.yearFromTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.yearFromTextBox.LeadingIcon = null;
-            this.yearFromTextBox.Location = new System.Drawing.Point(749, 166);
-            this.yearFromTextBox.MaxLength = 50;
-            this.yearFromTextBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.yearFromTextBox.Multiline = false;
-            this.yearFromTextBox.Name = "yearFromTextBox";
-            this.yearFromTextBox.Size = new System.Drawing.Size(128, 50);
-            this.yearFromTextBox.TabIndex = 11;
-            this.yearFromTextBox.Text = "";
-            this.yearFromTextBox.TrailingIcon = null;
-            // 
-            // yearToTextBox
-            // 
-            this.yearToTextBox.AnimateReadOnly = false;
-            this.yearToTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.yearToTextBox.Depth = 0;
-            this.yearToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.yearToTextBox.LeadingIcon = null;
-            this.yearToTextBox.Location = new System.Drawing.Point(900, 166);
-            this.yearToTextBox.MaxLength = 50;
-            this.yearToTextBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.yearToTextBox.Multiline = false;
-            this.yearToTextBox.Name = "yearToTextBox";
-            this.yearToTextBox.Size = new System.Drawing.Size(111, 50);
-            this.yearToTextBox.TabIndex = 12;
-            this.yearToTextBox.Text = "";
-            this.yearToTextBox.TrailingIcon = null;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(883, 180);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(11, 16);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "-";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(755, 147);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 16);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "From";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(933, 147);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 16);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "To";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(841, 111);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 16);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Year";
-            // 
-            // filterButton
-            // 
-            this.filterButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.filterButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.filterButton.Depth = 0;
-            this.filterButton.HighEmphasis = true;
-            this.filterButton.Icon = global::Car_Rental_System.Properties.Resources.filter;
-            this.filterButton.Location = new System.Drawing.Point(1018, 178);
-            this.filterButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.filterButton.MouseState = MaterialSkin.MouseState.HOVER;
-            this.filterButton.Name = "filterButton";
-            this.filterButton.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.filterButton.Size = new System.Drawing.Size(64, 36);
-            this.filterButton.TabIndex = 18;
-            this.filterButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.filterButton.UseAccentColor = false;
-            this.filterButton.UseVisualStyleBackColor = true;
-            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
-            // 
-            // searchButton
-            // 
-            this.searchButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.searchButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.searchButton.Depth = 0;
-            this.searchButton.HighEmphasis = true;
-            this.searchButton.Icon = global::Car_Rental_System.Properties.Resources.icons8_search_501;
-            this.searchButton.Location = new System.Drawing.Point(1043, 30);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.searchButton.MouseState = MaterialSkin.MouseState.HOVER;
-            this.searchButton.Name = "searchButton";
-            this.searchButton.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.searchButton.Size = new System.Drawing.Size(64, 36);
-            this.searchButton.TabIndex = 10;
-            this.searchButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.searchButton.UseAccentColor = false;
-            this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
-            // 
-            // selectedItemTextBox
-            // 
-            this.selectedItemTextBox.Location = new System.Drawing.Point(20, 372);
-            this.selectedItemTextBox.BorderStyle = BorderStyle.FixedSingle;
-            this.selectedItemTextBox.Enabled = false;
-            this.selectedItemTextBox.Name = "selectedItemTextBox";
-            this.selectedItemTextBox.Size = new System.Drawing.Size(696, 22);
-            this.selectedItemTextBox.TabIndex = 19;
-            // 
             // idColumn
             // 
             this.idColumn.Width = 0;
+            // 
+            // listBoxAdminCars
+            // 
+            this.listBoxAdminCars.BackColor = System.Drawing.Color.White;
+            this.listBoxAdminCars.BorderColor = System.Drawing.Color.LightGray;
+            this.listBoxAdminCars.Depth = 0;
+            this.listBoxAdminCars.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.listBoxAdminCars.Location = new System.Drawing.Point(1269, 33);
+            this.listBoxAdminCars.MouseState = MaterialSkin.MouseState.HOVER;
+            this.listBoxAdminCars.Name = "listBoxAdminCars";
+            this.listBoxAdminCars.SelectedIndex = -1;
+            this.listBoxAdminCars.SelectedItem = null;
+            this.listBoxAdminCars.Size = new System.Drawing.Size(549, 287);
+            this.listBoxAdminCars.TabIndex = 6;
+            // 
+            // txtRejectionReason
+            // 
+            this.txtRejectionReason.AnimateReadOnly = false;
+            this.txtRejectionReason.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRejectionReason.Depth = 0;
+            this.txtRejectionReason.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtRejectionReason.Hint = "Rejection reason";
+            this.txtRejectionReason.LeadingIcon = null;
+            this.txtRejectionReason.Location = new System.Drawing.Point(303, 475);
+            this.txtRejectionReason.MaxLength = 50;
+            this.txtRejectionReason.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtRejectionReason.Multiline = false;
+            this.txtRejectionReason.Name = "txtRejectionReason";
+            this.txtRejectionReason.Size = new System.Drawing.Size(287, 50);
+            this.txtRejectionReason.TabIndex = 5;
+            this.txtRejectionReason.Text = "";
+            this.txtRejectionReason.TrailingIcon = null;
+            // 
+            // btnDamaged
+            // 
+            this.btnDamaged.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDamaged.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnDamaged.Depth = 0;
+            this.btnDamaged.HighEmphasis = true;
+            this.btnDamaged.Icon = null;
+            this.btnDamaged.Location = new System.Drawing.Point(1226, 329);
+            this.btnDamaged.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDamaged.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDamaged.Name = "btnDamaged";
+            this.btnDamaged.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnDamaged.Size = new System.Drawing.Size(158, 36);
+            this.btnDamaged.TabIndex = 4;
+            this.btnDamaged.Text = "Mark as Damaged";
+            this.btnDamaged.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnDamaged.UseAccentColor = false;
+            this.btnDamaged.UseVisualStyleBackColor = true;
+            this.btnDamaged.Click += new System.EventHandler(this.btnDamaged_Click);
+            // 
+            // btnReject
+            // 
+            this.btnReject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnReject.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnReject.Depth = 0;
+            this.btnReject.HighEmphasis = true;
+            this.btnReject.Icon = null;
+            this.btnReject.Location = new System.Drawing.Point(617, 475);
+            this.btnReject.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnReject.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnReject.Name = "btnReject";
+            this.btnReject.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnReject.Size = new System.Drawing.Size(74, 36);
+            this.btnReject.TabIndex = 3;
+            this.btnReject.Text = "Reject";
+            this.btnReject.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnReject.UseAccentColor = false;
+            this.btnReject.UseVisualStyleBackColor = true;
+            this.btnReject.Click += new System.EventHandler(this.btnReject_Click);
+            // 
+            // btnApprove
+            // 
+            this.btnApprove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnApprove.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnApprove.Depth = 0;
+            this.btnApprove.HighEmphasis = true;
+            this.btnApprove.Icon = null;
+            this.btnApprove.Location = new System.Drawing.Point(172, 475);
+            this.btnApprove.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnApprove.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnApprove.Name = "btnApprove";
+            this.btnApprove.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnApprove.Size = new System.Drawing.Size(87, 36);
+            this.btnApprove.TabIndex = 2;
+            this.btnApprove.Text = "Approve";
+            this.btnApprove.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnApprove.UseAccentColor = false;
+            this.btnApprove.UseVisualStyleBackColor = true;
+            this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
+            // 
+            // btnBackAdmin
+            // 
+            this.btnBackAdmin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBackAdmin.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnBackAdmin.Depth = 0;
+            this.btnBackAdmin.HighEmphasis = true;
+            this.btnBackAdmin.Icon = null;
+            this.btnBackAdmin.Location = new System.Drawing.Point(20, 475);
+            this.btnBackAdmin.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnBackAdmin.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnBackAdmin.Name = "btnBackAdmin";
+            this.btnBackAdmin.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnBackAdmin.Size = new System.Drawing.Size(64, 36);
+            this.btnBackAdmin.TabIndex = 1;
+            this.btnBackAdmin.Text = "Back";
+            this.btnBackAdmin.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnBackAdmin.UseAccentColor = false;
+            this.btnBackAdmin.UseVisualStyleBackColor = true;
+            this.btnBackAdmin.Click += new System.EventHandler(this.btnBackAdmin_Click);
+            // 
+            // materialLabel3
+            // 
+            this.materialLabel3.AutoSize = true;
+            this.materialLabel3.Depth = 0;
+            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel3.Location = new System.Drawing.Point(545, 191);
+            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel3.Name = "materialLabel3";
+            this.materialLabel3.Size = new System.Drawing.Size(123, 19);
+            this.materialLabel3.TabIndex = 4;
+            this.materialLabel3.Text = "Choose your role:";
+            // 
+            // sortBtn
+            // 
+            this.sortBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.sortBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.sortBtn.Depth = 0;
+            this.sortBtn.HighEmphasis = true;
+            this.sortBtn.Icon = null;
+            this.sortBtn.Location = new System.Drawing.Point(786, 31);
+            this.sortBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.sortBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.sortBtn.Name = "sortBtn";
+            this.sortBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.sortBtn.Size = new System.Drawing.Size(64, 36);
+            this.sortBtn.TabIndex = 20;
+            this.sortBtn.Text = "sort";
+            this.sortBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.sortBtn.UseAccentColor = false;
+            this.sortBtn.UseVisualStyleBackColor = true;
+            this.sortBtn.Click += new System.EventHandler(this.sortBtn_Click);
+            // 
+            // prevBtn
+            // 
+            this.prevBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.prevBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.prevBtn.Depth = 0;
+            this.prevBtn.HighEmphasis = true;
+            this.prevBtn.Icon = null;
+            this.prevBtn.Location = new System.Drawing.Point(57, 101);
+            this.prevBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.prevBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.prevBtn.Name = "prevBtn";
+            this.prevBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.prevBtn.Size = new System.Drawing.Size(64, 36);
+            this.prevBtn.TabIndex = 21;
+            this.prevBtn.Text = "prev";
+            this.prevBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.prevBtn.UseAccentColor = false;
+            this.prevBtn.UseVisualStyleBackColor = true;
+            this.prevBtn.Click += new System.EventHandler(this.prevBtn_Click);
+            // 
+            // nextBtn
+            // 
+            this.nextBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.nextBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.nextBtn.Depth = 0;
+            this.nextBtn.HighEmphasis = true;
+            this.nextBtn.Icon = null;
+            this.nextBtn.Location = new System.Drawing.Point(183, 101);
+            this.nextBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.nextBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.nextBtn.Name = "nextBtn";
+            this.nextBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.nextBtn.Size = new System.Drawing.Size(64, 36);
+            this.nextBtn.TabIndex = 22;
+            this.nextBtn.Text = "next";
+            this.nextBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.nextBtn.UseAccentColor = false;
+            this.nextBtn.UseVisualStyleBackColor = true;
+            this.nextBtn.Click += new System.EventHandler(this.nextBtn_Click);
+            // 
+            // pageNumTextBox
+            // 
+            this.pageNumTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pageNumTextBox.Enabled = false;
+            this.pageNumTextBox.Location = new System.Drawing.Point(142, 109);
+            this.pageNumTextBox.Name = "pageNumTextBox";
+            this.pageNumTextBox.ReadOnly = true;
+            this.pageNumTextBox.Size = new System.Drawing.Size(24, 22);
+            this.pageNumTextBox.TabIndex = 23;
+            this.pageNumTextBox.Text = "1";
+            // 
+            // countTextBox
+            // 
+            this.countTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.countTextBox.Enabled = false;
+            this.countTextBox.Location = new System.Drawing.Point(709, 450);
+            this.countTextBox.Name = "countTextBox";
+            this.countTextBox.ReadOnly = true;
+            this.countTextBox.Size = new System.Drawing.Size(100, 22);
+            this.countTextBox.TabIndex = 24;
+            // 
+            // maxDaysTextBox
+            // 
+            this.maxDaysTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.maxDaysTextBox.Enabled = false;
+            this.maxDaysTextBox.Location = new System.Drawing.Point(829, 450);
+            this.maxDaysTextBox.Name = "maxDaysTextBox";
+            this.maxDaysTextBox.ReadOnly = true;
+            this.maxDaysTextBox.Size = new System.Drawing.Size(100, 22);
+            this.maxDaysTextBox.TabIndex = 25;
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.Location = new System.Drawing.Point(728, 428);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(47, 19);
+            this.materialLabel1.TabIndex = 26;
+            this.materialLabel1.Text = "Count:";
+            // 
+            // materialLabel4
+            // 
+            this.materialLabel4.AutoSize = true;
+            this.materialLabel4.Depth = 0;
+            this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel4.Location = new System.Drawing.Point(841, 428);
+            this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel4.Name = "materialLabel4";
+            this.materialLabel4.Size = new System.Drawing.Size(74, 19);
+            this.materialLabel4.TabIndex = 27;
+            this.materialLabel4.Text = "Max days:";
+            // 
+            // loadSourceBtn
+            // 
+            this.loadSourceBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.loadSourceBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.loadSourceBtn.Depth = 0;
+            this.loadSourceBtn.HighEmphasis = true;
+            this.loadSourceBtn.Icon = null;
+            this.loadSourceBtn.Location = new System.Drawing.Point(693, 101);
+            this.loadSourceBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.loadSourceBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.loadSourceBtn.Name = "loadSourceBtn";
+            this.loadSourceBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.loadSourceBtn.Size = new System.Drawing.Size(190, 36);
+            this.loadSourceBtn.TabIndex = 28;
+            this.loadSourceBtn.Text = "Load another source";
+            this.loadSourceBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.loadSourceBtn.UseAccentColor = false;
+            this.loadSourceBtn.UseVisualStyleBackColor = true;
+            this.loadSourceBtn.Click += new System.EventHandler(this.loadSourceBtn_Click);
+            // 
+            // fileDialog
+            // 
+            this.fileDialog.FileName = "openFileDialog1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1339, 562);
+            this.ClientSize = new System.Drawing.Size(1363, 605);
             this.Controls.Add(this.panelAdmin);
             this.Controls.Add(this.panelClient);
             this.Controls.Add(this.btnAdmin);
@@ -699,7 +837,6 @@ namespace Car_Rental_System
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader rejectionColumn;
-        private MaterialSkin.Controls.MaterialButton filterButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
@@ -708,6 +845,16 @@ namespace Car_Rental_System
         private MaterialSkin.Controls.MaterialTextBox yearFromTextBox;
         private System.Windows.Forms.TextBox selectedItemTextBox;
         private System.Windows.Forms.ColumnHeader idColumn;
+        private MaterialSkin.Controls.MaterialButton sortBtn;
+        private TextBox pageNumTextBox;
+        private MaterialSkin.Controls.MaterialButton nextBtn;
+        private MaterialSkin.Controls.MaterialButton prevBtn;
+        private MaterialSkin.Controls.MaterialLabel materialLabel4;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private TextBox maxDaysTextBox;
+        private TextBox countTextBox;
+        private MaterialSkin.Controls.MaterialButton loadSourceBtn;
+        private OpenFileDialog fileDialog;
     }
 }
 
