@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Car_Rental_System
+namespace Car_Rental_System.Services
 {
-    internal delegate bool FilterDelegate<T>(T entity) where T : IEntity;
+    public class CarService
+    {
+    }
 }
