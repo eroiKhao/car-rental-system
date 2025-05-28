@@ -9,17 +9,31 @@ namespace Car_Rental_System.Views
     public partial class ModifyCarForm : MaterialForm
     {
         private readonly RentalCarContext _context;
-        public ModifyCarForm()
+        private AdminForm _adminForm;
+        public ModifyCarForm(AdminForm adminForm)
         {
             InitializeComponent();
-
+            _adminForm = adminForm;
             _context = new RentalCarContext();
             LoadCarsAsync();
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Green500, Primary.Green700, Primary.Green200, Accent.LightGreen200, TextShade.WHITE);
+        }
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            _adminForm.Show();
+            this.Close();
+        }
+        private void ModifyCarForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_adminForm != null && !_adminForm.IsDisposed)
+            {
+                _adminForm.Show();
+            }
         }
         private async void addBtn_Click(object sender, EventArgs e)
         {
@@ -118,13 +132,15 @@ namespace Car_Rental_System.Views
             {
                 carsListView.Items.Clear();
 
-                var cars = await _context.Cars.ToListAsync();
+                var cars = await _context.Cars
+                    .FromSqlRaw("SELECT * FROM Cars")
+                    .ToListAsync();
 
                 foreach (var car in cars)
                 {
                     var item = new ListViewItem((carsListView.Items.Count + 1).ToString());
                     item.SubItems.Add(car.Model);
-                    item.SubItems.Add(car.PricePerDay.HasValue ? car.PricePerDay.Value.ToString("F2") : "N/A");
+                    item.SubItems.Add(car.PricePerDay.ToString("F2"));
                     item.SubItems.Add(car.Status);
                     item.SubItems.Add(car.CreatedAt.ToString("yyyy-MM-dd"));
                     item.SubItems.Add(car.Id.ToString());
@@ -136,6 +152,39 @@ namespace Car_Rental_System.Views
             {
                 Debug.WriteLine(ex.Message);
                 MessageBox.Show("An error occurred while loading cars.");
+            }
+        }
+
+        private async void markAsAvailable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (carsListView.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Please select a car to mark as damaged.");
+                    return;
+                }
+
+                var selectedItem = carsListView.SelectedItems[0];
+                var carId = Guid.Parse(selectedItem.SubItems[5].Text);
+
+                var car = await _context.Cars.FindAsync(carId);
+                if (car == null)
+                {
+                    MessageBox.Show("Car not found.");
+                    return;
+                }
+
+                car.Status = "Available";
+                await _context.SaveChangesAsync();
+                MessageBox.Show("Car marked as available successfully.");
+
+                await LoadCarsAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                MessageBox.Show("An error occurred while marking the car as available.");
             }
         }
     }

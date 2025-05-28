@@ -28,45 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            carsListBox = new MaterialSkin.Controls.MaterialListBox();
-            passTextBox = new MaterialSkin.Controls.MaterialTextBox();
+            passportTextBox = new MaterialSkin.Controls.MaterialTextBox();
             rentalDaysTextBox = new MaterialSkin.Controls.MaterialTextBox();
             adminBtn = new MaterialSkin.Controls.MaterialButton();
             rentBtn = new MaterialSkin.Controls.MaterialButton();
-            approvedListBox = new MaterialSkin.Controls.MaterialListBox();
+            mySqlCommand1 = new MySqlConnector.MySqlCommand();
+            carsListView = new MaterialSkin.Controls.MaterialListView();
+            id = new ColumnHeader();
+            model = new ColumnHeader();
+            status = new ColumnHeader();
+            priceperday = new ColumnHeader();
+            selectedTextBox = new MaterialSkin.Controls.MaterialTextBox();
+            nameTextBox = new MaterialSkin.Controls.MaterialTextBox();
+            emailTextBox = new MaterialSkin.Controls.MaterialTextBox();
             payBtn = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
-            // carsListBox
+            // passportTextBox
             // 
-            carsListBox.BackColor = Color.White;
-            carsListBox.BorderColor = Color.LightGray;
-            carsListBox.Depth = 0;
-            carsListBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            carsListBox.Location = new Point(182, 85);
-            carsListBox.MouseState = MaterialSkin.MouseState.HOVER;
-            carsListBox.Name = "carsListBox";
-            carsListBox.SelectedIndex = -1;
-            carsListBox.SelectedItem = null;
-            carsListBox.Size = new Size(546, 384);
-            carsListBox.TabIndex = 0;
-            // 
-            // passTextBox
-            // 
-            passTextBox.AnimateReadOnly = false;
-            passTextBox.BorderStyle = BorderStyle.None;
-            passTextBox.Depth = 0;
-            passTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            passTextBox.LeadingIcon = null;
-            passTextBox.Location = new Point(31, 171);
-            passTextBox.MaxLength = 50;
-            passTextBox.MouseState = MaterialSkin.MouseState.OUT;
-            passTextBox.Multiline = false;
-            passTextBox.Name = "passTextBox";
-            passTextBox.Size = new Size(125, 50);
-            passTextBox.TabIndex = 1;
-            passTextBox.Text = "";
-            passTextBox.TrailingIcon = null;
+            passportTextBox.AnimateReadOnly = false;
+            passportTextBox.BorderStyle = BorderStyle.None;
+            passportTextBox.Depth = 0;
+            passportTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            passportTextBox.Hint = "Passport details";
+            passportTextBox.LeadingIcon = null;
+            passportTextBox.Location = new Point(6, 250);
+            passportTextBox.MaxLength = 50;
+            passportTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            passportTextBox.Multiline = false;
+            passportTextBox.Name = "passportTextBox";
+            passportTextBox.Size = new Size(244, 50);
+            passportTextBox.TabIndex = 1;
+            passportTextBox.Text = "";
+            passportTextBox.TrailingIcon = null;
             // 
             // rentalDaysTextBox
             // 
@@ -74,13 +68,14 @@
             rentalDaysTextBox.BorderStyle = BorderStyle.None;
             rentalDaysTextBox.Depth = 0;
             rentalDaysTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            rentalDaysTextBox.Hint = "Rental days";
             rentalDaysTextBox.LeadingIcon = null;
-            rentalDaysTextBox.Location = new Point(31, 241);
+            rentalDaysTextBox.Location = new Point(6, 194);
             rentalDaysTextBox.MaxLength = 50;
             rentalDaysTextBox.MouseState = MaterialSkin.MouseState.OUT;
             rentalDaysTextBox.Multiline = false;
             rentalDaysTextBox.Name = "rentalDaysTextBox";
-            rentalDaysTextBox.Size = new Size(125, 50);
+            rentalDaysTextBox.Size = new Size(244, 50);
             rentalDaysTextBox.TabIndex = 2;
             rentalDaysTextBox.Text = "";
             rentalDaysTextBox.TrailingIcon = null;
@@ -91,13 +86,13 @@
             adminBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             adminBtn.Depth = 0;
             adminBtn.HighEmphasis = true;
-            adminBtn.Icon = null;
-            adminBtn.Location = new Point(1155, 489);
+            adminBtn.Icon = Properties.Resources.admin;
+            adminBtn.Location = new Point(584, 383);
             adminBtn.Margin = new Padding(4, 6, 4, 6);
             adminBtn.MouseState = MaterialSkin.MouseState.HOVER;
             adminBtn.Name = "adminBtn";
             adminBtn.NoAccentTextColor = Color.Empty;
-            adminBtn.Size = new Size(118, 36);
+            adminBtn.Size = new Size(146, 36);
             adminBtn.TabIndex = 3;
             adminBtn.Text = "Admin panel";
             adminBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -112,7 +107,7 @@
             rentBtn.Depth = 0;
             rentBtn.HighEmphasis = true;
             rentBtn.Icon = null;
-            rentBtn.Location = new Point(61, 300);
+            rentBtn.Location = new Point(7, 309);
             rentBtn.Margin = new Padding(4, 6, 4, 6);
             rentBtn.MouseState = MaterialSkin.MouseState.HOVER;
             rentBtn.Name = "rentBtn";
@@ -125,19 +120,107 @@
             rentBtn.UseVisualStyleBackColor = true;
             rentBtn.Click += rentBtn_Click;
             // 
-            // approvedListBox
+            // mySqlCommand1
             // 
-            approvedListBox.BackColor = Color.White;
-            approvedListBox.BorderColor = Color.LightGray;
-            approvedListBox.Depth = 0;
-            approvedListBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            approvedListBox.Location = new Point(748, 97);
-            approvedListBox.MouseState = MaterialSkin.MouseState.HOVER;
-            approvedListBox.Name = "approvedListBox";
-            approvedListBox.SelectedIndex = -1;
-            approvedListBox.SelectedItem = null;
-            approvedListBox.Size = new Size(487, 344);
-            approvedListBox.TabIndex = 5;
+            mySqlCommand1.CommandTimeout = 0;
+            mySqlCommand1.Connection = null;
+            mySqlCommand1.Transaction = null;
+            mySqlCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
+            // 
+            // carsListView
+            // 
+            carsListView.AutoSizeTable = false;
+            carsListView.BackColor = Color.FromArgb(255, 255, 255);
+            carsListView.BorderStyle = BorderStyle.None;
+            carsListView.Columns.AddRange(new ColumnHeader[] { id, model, status, priceperday });
+            carsListView.Depth = 0;
+            carsListView.FullRowSelect = true;
+            carsListView.Location = new Point(271, 82);
+            carsListView.MinimumSize = new Size(200, 100);
+            carsListView.MouseLocation = new Point(-1, -1);
+            carsListView.MouseState = MaterialSkin.MouseState.OUT;
+            carsListView.Name = "carsListView";
+            carsListView.OwnerDraw = true;
+            carsListView.Size = new Size(446, 236);
+            carsListView.TabIndex = 5;
+            carsListView.UseCompatibleStateImageBehavior = false;
+            carsListView.View = View.Details;
+            carsListView.SelectedIndexChanged += carsListView_SelectedIndexChanged;
+            // 
+            // id
+            // 
+            id.Text = "#";
+            id.Width = 40;
+            // 
+            // model
+            // 
+            model.Text = "Model";
+            model.Width = 150;
+            // 
+            // status
+            // 
+            status.Text = "Status";
+            status.Width = 100;
+            // 
+            // priceperday
+            // 
+            priceperday.Text = "PricePerDay";
+            priceperday.Width = 150;
+            // 
+            // selectedTextBox
+            // 
+            selectedTextBox.AnimateReadOnly = false;
+            selectedTextBox.BorderStyle = BorderStyle.None;
+            selectedTextBox.Depth = 0;
+            selectedTextBox.Enabled = false;
+            selectedTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            selectedTextBox.LeadingIcon = null;
+            selectedTextBox.Location = new Point(271, 324);
+            selectedTextBox.MaxLength = 50;
+            selectedTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            selectedTextBox.Multiline = false;
+            selectedTextBox.Name = "selectedTextBox";
+            selectedTextBox.ReadOnly = true;
+            selectedTextBox.Size = new Size(446, 50);
+            selectedTextBox.TabIndex = 6;
+            selectedTextBox.Text = "";
+            selectedTextBox.TrailingIcon = null;
+            // 
+            // nameTextBox
+            // 
+            nameTextBox.AnimateReadOnly = false;
+            nameTextBox.BorderStyle = BorderStyle.None;
+            nameTextBox.Depth = 0;
+            nameTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            nameTextBox.Hint = "Name";
+            nameTextBox.LeadingIcon = null;
+            nameTextBox.Location = new Point(6, 82);
+            nameTextBox.MaxLength = 50;
+            nameTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            nameTextBox.Multiline = false;
+            nameTextBox.Name = "nameTextBox";
+            nameTextBox.Size = new Size(244, 50);
+            nameTextBox.TabIndex = 7;
+            nameTextBox.Text = "";
+            nameTextBox.TrailingIcon = null;
+            // 
+            // emailTextBox
+            // 
+            emailTextBox.AnimateReadOnly = false;
+            emailTextBox.BorderStyle = BorderStyle.None;
+            emailTextBox.Depth = 0;
+            emailTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            emailTextBox.Hint = "Email";
+            emailTextBox.LeadingIcon = null;
+            emailTextBox.Location = new Point(6, 138);
+            emailTextBox.MaxLength = 50;
+            emailTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            emailTextBox.Multiline = false;
+            emailTextBox.Name = "emailTextBox";
+            emailTextBox.Size = new Size(244, 50);
+            emailTextBox.TabIndex = 8;
+            emailTextBox.Text = "";
+            emailTextBox.TrailingIcon = null;
             // 
             // payBtn
             // 
@@ -146,44 +229,54 @@
             payBtn.Depth = 0;
             payBtn.HighEmphasis = true;
             payBtn.Icon = null;
-            payBtn.Location = new Point(963, 450);
+            payBtn.Location = new Point(186, 309);
             payBtn.Margin = new Padding(4, 6, 4, 6);
             payBtn.MouseState = MaterialSkin.MouseState.HOVER;
             payBtn.Name = "payBtn";
             payBtn.NoAccentTextColor = Color.Empty;
-            payBtn.Size = new Size(121, 36);
-            payBtn.TabIndex = 6;
-            payBtn.Text = "Pay for rent";
+            payBtn.Size = new Size(64, 36);
+            payBtn.TabIndex = 9;
+            payBtn.Text = "Pay";
             payBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             payBtn.UseAccentColor = false;
             payBtn.UseVisualStyleBackColor = true;
+            payBtn.Click += payBtn_Click;
             // 
             // ClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1301, 552);
+            ClientSize = new Size(748, 434);
             Controls.Add(payBtn);
-            Controls.Add(approvedListBox);
+            Controls.Add(emailTextBox);
+            Controls.Add(nameTextBox);
+            Controls.Add(selectedTextBox);
+            Controls.Add(carsListView);
             Controls.Add(rentBtn);
             Controls.Add(adminBtn);
             Controls.Add(rentalDaysTextBox);
-            Controls.Add(passTextBox);
-            Controls.Add(carsListBox);
+            Controls.Add(passportTextBox);
             Name = "ClientForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Client Form";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private MaterialSkin.Controls.MaterialListBox carsListBox;
-        private MaterialSkin.Controls.MaterialTextBox passTextBox;
+        private MaterialSkin.Controls.MaterialTextBox passportTextBox;
         private MaterialSkin.Controls.MaterialTextBox rentalDaysTextBox;
         private MaterialSkin.Controls.MaterialButton adminBtn;
         private MaterialSkin.Controls.MaterialButton rentBtn;
-        private MaterialSkin.Controls.MaterialListBox approvedListBox;
+        private MySqlConnector.MySqlCommand mySqlCommand1;
+        private MaterialSkin.Controls.MaterialListView carsListView;
+        private ColumnHeader id;
+        private ColumnHeader model;
+        private ColumnHeader status;
+        private ColumnHeader priceperday;
+        private MaterialSkin.Controls.MaterialTextBox selectedTextBox;
+        private MaterialSkin.Controls.MaterialTextBox nameTextBox;
+        private MaterialSkin.Controls.MaterialTextBox emailTextBox;
         private MaterialSkin.Controls.MaterialButton payBtn;
     }
 }

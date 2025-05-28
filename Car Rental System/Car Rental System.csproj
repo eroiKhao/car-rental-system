@@ -11,11 +11,8 @@
 
   <ItemGroup>
     <Compile Remove="Repositories\**" />
-    <Compile Remove="Services\**" />
     <EmbeddedResource Remove="Repositories\**" />
-    <EmbeddedResource Remove="Services\**" />
     <None Remove="Repositories\**" />
-    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>

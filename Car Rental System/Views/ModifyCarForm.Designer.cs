@@ -41,6 +41,8 @@
             addLabel = new MaterialSkin.Controls.MaterialLabel();
             markAsDamagedBtn = new MaterialSkin.Controls.MaterialButton();
             deleteBtn = new MaterialSkin.Controls.MaterialButton();
+            markAsAvailable = new MaterialSkin.Controls.MaterialButton();
+            backBtn = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // guid
@@ -74,7 +76,7 @@
             modelTextBox.BorderStyle = BorderStyle.None;
             modelTextBox.Depth = 0;
             modelTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            modelTextBox.Hint = "Enter a model...";
+            modelTextBox.Hint = "Model";
             modelTextBox.LeadingIcon = null;
             modelTextBox.Location = new Point(64, 151);
             modelTextBox.MaxLength = 50;
@@ -92,7 +94,7 @@
             priceTextBox.BorderStyle = BorderStyle.None;
             priceTextBox.Depth = 0;
             priceTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            priceTextBox.Hint = "Enter a price...";
+            priceTextBox.Hint = "Price";
             priceTextBox.LeadingIcon = null;
             priceTextBox.Location = new Point(64, 218);
             priceTextBox.MaxLength = 50;
@@ -135,7 +137,7 @@
             // 
             // price
             // 
-            price.Text = "price/day";
+            price.Text = "Price Per Day";
             price.Width = 100;
             // 
             // status
@@ -151,14 +153,17 @@
             // addLabel
             // 
             addLabel.AutoSize = true;
+            addLabel.BackColor = SystemColors.ActiveCaption;
             addLabel.Depth = 0;
-            addLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            addLabel.Location = new Point(77, 115);
+            addLabel.Font = new Font("Roboto", 24F, FontStyle.Bold, GraphicsUnit.Pixel);
+            addLabel.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            addLabel.ForeColor = Color.Black;
+            addLabel.Location = new Point(51, 107);
             addLabel.MouseState = MaterialSkin.MouseState.HOVER;
             addLabel.Name = "addLabel";
-            addLabel.Size = new Size(98, 19);
+            addLabel.Size = new Size(154, 29);
             addLabel.TabIndex = 5;
-            addLabel.Text = "Add Car Form";
+            addLabel.Text = "Add a new car";
             // 
             // markAsDamagedBtn
             // 
@@ -167,7 +172,7 @@
             markAsDamagedBtn.Depth = 0;
             markAsDamagedBtn.HighEmphasis = true;
             markAsDamagedBtn.Icon = null;
-            markAsDamagedBtn.Location = new Point(377, 450);
+            markAsDamagedBtn.Location = new Point(666, 450);
             markAsDamagedBtn.Margin = new Padding(4, 6, 4, 6);
             markAsDamagedBtn.MouseState = MaterialSkin.MouseState.HOVER;
             markAsDamagedBtn.Name = "markAsDamagedBtn";
@@ -200,11 +205,54 @@
             deleteBtn.UseVisualStyleBackColor = true;
             deleteBtn.Click += deleteBtn_Click;
             // 
+            // markAsAvailable
+            // 
+            markAsAvailable.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            markAsAvailable.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            markAsAvailable.Depth = 0;
+            markAsAvailable.HighEmphasis = true;
+            markAsAvailable.Icon = null;
+            markAsAvailable.Location = new Point(561, 450);
+            markAsAvailable.Margin = new Padding(4, 6, 4, 6);
+            markAsAvailable.MouseState = MaterialSkin.MouseState.HOVER;
+            markAsAvailable.Name = "markAsAvailable";
+            markAsAvailable.NoAccentTextColor = Color.Empty;
+            markAsAvailable.Size = new Size(98, 36);
+            markAsAvailable.TabIndex = 8;
+            markAsAvailable.Text = "Available";
+            markAsAvailable.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            markAsAvailable.UseAccentColor = false;
+            markAsAvailable.UseVisualStyleBackColor = true;
+            markAsAvailable.Click += markAsAvailable_Click;
+            // 
+            // backBtn
+            // 
+            backBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            backBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            backBtn.Depth = 0;
+            backBtn.HighEmphasis = true;
+            backBtn.Icon = Properties.Resources.admin;
+            backBtn.Location = new Point(23, 464);
+            backBtn.Margin = new Padding(4, 6, 4, 6);
+            backBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            backBtn.Name = "backBtn";
+            backBtn.NoAccentTextColor = Color.Empty;
+            backBtn.Size = new Size(160, 36);
+            backBtn.TabIndex = 9;
+            backBtn.Text = "Back To Admin";
+            backBtn.TextAlign = ContentAlignment.MiddleRight;
+            backBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            backBtn.UseAccentColor = false;
+            backBtn.UseVisualStyleBackColor = true;
+            backBtn.Click += backBtn_Click;
+            // 
             // ModifyCarForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(876, 522);
+            ClientSize = new Size(791, 519);
+            Controls.Add(backBtn);
+            Controls.Add(markAsAvailable);
             Controls.Add(deleteBtn);
             Controls.Add(markAsDamagedBtn);
             Controls.Add(addLabel);
@@ -213,6 +261,7 @@
             Controls.Add(modelTextBox);
             Controls.Add(addBtn);
             Name = "ModifyCarForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Modification";
             ResumeLayout(false);
             PerformLayout();
@@ -233,5 +282,7 @@
         private MaterialSkin.Controls.MaterialButton markAsDamagedBtn;
         private ColumnHeader guid;
         private MaterialSkin.Controls.MaterialButton deleteBtn;
+        private MaterialSkin.Controls.MaterialButton markAsAvailable;
+        private MaterialSkin.Controls.MaterialButton backBtn;
     }
 }

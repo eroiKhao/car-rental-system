@@ -17,5 +17,35 @@ namespace Car_Rental_System
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 41));
             optionsBuilder.UseMySql(connectionString, serverVersion);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<Car>()
+                .Property(c => c.PricePerDay)
+                .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalPrice)
+                .IsRequired()
+                .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Client>()
+                .HasMany(c => c.Orders)
+                .WithOne(o => o.Client)
+                .HasForeignKey(o => o.ClientID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.RentedCar)
+                .WithMany(c => c.Orders)
+                .HasForeignKey(o => o.CarID)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
     }
-}
+    }
+

@@ -1,12 +1,15 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Car_Rental_System.Models
 {
-    public class User : Entity
+    public abstract class User : Entity
     {
-        [JsonIgnore]
-        public string? Name { get; set; }
-        [JsonIgnore]
-        public string? Email { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; } = string.Empty;
+        [Required]
+        [EmailAddress]
+        [StringLength(100)]
+        public string Email { get; set; } = string.Empty;
     }
 }
