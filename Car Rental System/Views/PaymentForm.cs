@@ -1,29 +1,22 @@
 ﻿using System.Diagnostics;
-using CarRentalSystem.Generic.Repositories;
-using CarRentalSystem.Models;
 using CarRentalSystem.Services;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalSystem.Views
 {
     public partial class PaymentForm : MaterialForm
     {
-        private readonly RentalCarContext _context;
         private readonly OrderService _orderService;
-        private ClientForm _clientForm;
-        public PaymentForm(ClientForm clientForm)
+        private readonly ClientForm _clientForm;
+        public PaymentForm(
+        OrderService orderService,
+        ClientForm clientForm)
         {
             InitializeComponent();
 
-            _context = new RentalCarContext();
+            _orderService = orderService;
             _clientForm = clientForm;
-
-            var carRepository = new Repository<Car>(_context);
-            var clientRepository = new Repository<Client>(_context);
-            var orderRepository = new Repository<Order>(_context);
-            _orderService = new OrderService(orderRepository, carRepository, clientRepository, _context);
 
             LoadPendingOrdersAsync();
 

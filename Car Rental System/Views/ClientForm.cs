@@ -1,4 +1,4 @@
-using CarRentalSystem.Generic.Repositories;
+using CarRentalSystem.Main;
 using CarRentalSystem.Models;
 using CarRentalSystem.Services;
 using CarRentalSystem.Views;
@@ -10,21 +10,21 @@ namespace CarRentalSystem
 {
     public partial class ClientForm : MaterialForm
     {
-        private readonly RentalCarContext _context;
         private readonly CarService _carService;
         private readonly ClientService _clientService;
         private readonly OrderService _orderService;
-        public ClientForm()
+        private readonly IFormFactory _formFactory;
+        public ClientForm(CarService carService,
+        ClientService clientService,
+        OrderService orderService,
+        IFormFactory formFactory)
         {
             InitializeComponent();
-            _context = new RentalCarContext();
-            
-            var carRepository = new Repository<Car>(_context);
-            var clientRepository = new Repository<Client>(_context);
-            var orderRepository = new Repository<Order>(_context);
-            _carService = new CarService(carRepository, _context);
-            _clientService = new ClientService(clientRepository, _context);
-            _orderService = new OrderService(orderRepository, carRepository, clientRepository, _context);
+
+            _carService = carService;
+            _clientService = clientService;
+            _orderService = orderService;
+            _formFactory = formFactory;
 
             LoadCarsToListView();
 
@@ -36,13 +36,14 @@ namespace CarRentalSystem
         private void adminBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AdminForm adminForm = new AdminForm(this);
+
+            AdminForm adminForm = _formFactory.CreateForm<AdminForm>();
             adminForm.Show();
         }
         private void payBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            PaymentForm paymentForm = new PaymentForm(this);
+            PaymentForm paymentForm = _formFactory.CreateForm<PaymentForm>();
             paymentForm.ShowDialog();
         }
 

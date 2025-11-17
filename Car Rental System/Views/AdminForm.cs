@@ -1,5 +1,4 @@
-﻿using CarRentalSystem.Generic.Repositories;
-using CarRentalSystem.Models;
+﻿using CarRentalSystem.Main;
 using CarRentalSystem.Services;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -9,29 +8,35 @@ namespace CarRentalSystem.Views
 {
     public partial class AdminForm : MaterialForm
     {
-        private readonly RentalCarContext _context;
         private readonly OrderService _orderService;
+        private readonly IFormFactory _formFactory;
+        private readonly ClientForm _clientForm;
 
-        private ClientForm _clientForm;
         private int currentPage = 1;
         private int pageSize = 5;
-        public AdminForm(ClientForm clientForm)
+        public AdminForm(OrderService orderService,
+        IFormFactory formFactory,
+        ClientForm clientForm)
         {
             InitializeComponent();
+
+            _orderService = orderService;
+            _formFactory = formFactory;
             _clientForm = clientForm;
-            _context = new RentalCarContext();
 
-            var carRepository = new Repository<Car>(_context);
-            var clientRepository = new Repository<Client>(_context);
-            var orderRepository = new Repository<Order>(_context);
-
-            _orderService = new OrderService(orderRepository, carRepository, clientRepository, _context);
             LoadAllOrders();
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Green500, Primary.Green700, Primary.Green200, Accent.LightGreen200, TextShade.WHITE);
+        }
+        private void modifyBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ModifyCarForm modifyCarForm = _formFactory.CreateForm<ModifyCarForm>();
+            modifyCarForm.ShowDialog();
+            this.Show();
         }
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -45,15 +50,6 @@ namespace CarRentalSystem.Views
             this.Hide();
             _clientForm.Show();
             this.Close();
-        }
-
-        private void modifyBtn_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var carRepository = new Repository<Car>(_context);
-            var carService = new CarService(carRepository, _context);
-            ModifyCarForm modifyCarForm = new ModifyCarForm(this, carService);
-            modifyCarForm.ShowDialog();
         }
 
         private async void LoadAllOrders()

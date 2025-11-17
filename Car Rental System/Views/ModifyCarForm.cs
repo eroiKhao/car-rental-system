@@ -1,23 +1,23 @@
 ﻿using System.Diagnostics;
-using CarRentalSystem.Models;
 using CarRentalSystem.Services;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalSystem.Views
 {
     public partial class ModifyCarForm : MaterialForm
     {
-        private readonly RentalCarContext _context;
-        private AdminForm _adminForm;
         private readonly CarService _carService;
-        public ModifyCarForm(AdminForm adminForm, CarService carService)
+        private readonly AdminForm _adminForm;
+        public ModifyCarForm(
+        CarService carService,
+        AdminForm adminForm)
         {
             InitializeComponent();
-            _adminForm = adminForm;
-            _context = new RentalCarContext();
+
             _carService = carService;
+            _adminForm = adminForm;
+
             LoadCarsAsync();
 
             var materialSkinManager = MaterialSkinManager.Instance;
