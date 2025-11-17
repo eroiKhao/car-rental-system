@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using CarRentalSystem.Models;
+using CarRentalSystem.Services;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,13 @@ namespace CarRentalSystem.Views
     {
         private readonly RentalCarContext _context;
         private AdminForm _adminForm;
-        public ModifyCarForm(AdminForm adminForm)
+        private readonly CarService _carService;
+        public ModifyCarForm(AdminForm adminForm, CarService carService)
         {
             InitializeComponent();
             _adminForm = adminForm;
             _context = new RentalCarContext();
+            _carService = carService;
             LoadCarsAsync();
 
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -39,16 +42,10 @@ namespace CarRentalSystem.Views
         {
             try
             {
-                var car = new Car
-                {
-                    CreatedAt = DateTime.Now,
-                    Model = modelTextBox.Text,
-                    PricePerDay = Convert.ToDecimal(priceTextBox.Text),
-                    Status = "Available"
-                };
+                string model = modelTextBox.Text;
+                decimal price = Convert.ToDecimal(priceTextBox.Text);
 
-                _context.Cars.Add(car);
-                await _context.SaveChangesAsync();
+                _carService.AddNewCar(model, price);
 
                 MessageBox.Show("Car added successfully.");
 
@@ -74,18 +71,15 @@ namespace CarRentalSystem.Views
                 var selectedItem = carsListView.SelectedItems[0];
                 var carId = Guid.Parse(selectedItem.SubItems[5].Text);
 
-                var car = await _context.Cars.FindAsync(carId);
-                if (car == null)
-                {
-                    MessageBox.Show("Car not found.");
-                    return;
-                }
+                _carService.MarkCarStatus(carId, "Damaged");
 
-                car.Status = "Damaged";
-                await _context.SaveChangesAsync();
                 MessageBox.Show("Car marked as damaged successfully.");
 
                 await LoadCarsAsync();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             catch (Exception ex)
             {
@@ -107,18 +101,15 @@ namespace CarRentalSystem.Views
                 var selectedItem = carsListView.SelectedItems[0];
                 var carId = Guid.Parse(selectedItem.SubItems[5].Text);
 
-                var car = await _context.Cars.FindAsync(carId);
-                if (car == null)
-                {
-                    MessageBox.Show("Car not found.");
-                    return;
-                }
+                _carService.DeleteCar(carId);
 
-                _context.Cars.Remove(car);
-                await _context.SaveChangesAsync();
                 MessageBox.Show("Car deleted successfully.");
 
                 await LoadCarsAsync();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             catch (Exception ex)
             {
@@ -132,9 +123,7 @@ namespace CarRentalSystem.Views
             {
                 carsListView.Items.Clear();
 
-                var cars = await _context.Cars
-                    .FromSqlRaw("SELECT * FROM Cars")
-                    .ToListAsync();
+                var cars = _carService.GetAllCars();
 
                 foreach (var car in cars)
                 {
@@ -168,18 +157,15 @@ namespace CarRentalSystem.Views
                 var selectedItem = carsListView.SelectedItems[0];
                 var carId = Guid.Parse(selectedItem.SubItems[5].Text);
 
-                var car = await _context.Cars.FindAsync(carId);
-                if (car == null)
-                {
-                    MessageBox.Show("Car not found.");
-                    return;
-                }
+                _carService.MarkCarStatus(carId, "Available");
 
-                car.Status = "Available";
-                await _context.SaveChangesAsync();
                 MessageBox.Show("Car marked as available successfully.");
 
                 await LoadCarsAsync();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             catch (Exception ex)
             {

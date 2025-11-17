@@ -1,4 +1,6 @@
+using CarRentalSystem.Generic.Repositories;
 using CarRentalSystem.Models;
+using CarRentalSystem.Services;
 using CarRentalSystem.Views;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -9,11 +11,20 @@ namespace CarRentalSystem
     public partial class ClientForm : MaterialForm
     {
         private readonly RentalCarContext _context;
+        private readonly CarService _carService;
+        private readonly ClientService _clientService;
+        private readonly OrderService _orderService;
         public ClientForm()
         {
             InitializeComponent();
-
             _context = new RentalCarContext();
+            
+            var carRepository = new Repository<Car>(_context);
+            var clientRepository = new Repository<Client>(_context);
+            var orderRepository = new Repository<Order>(_context);
+            _carService = new CarService(carRepository, _context);
+            _clientService = new ClientService(clientRepository, _context);
+            _orderService = new OrderService(orderRepository, carRepository, clientRepository, _context);
 
             LoadCarsToListView();
 
@@ -46,9 +57,9 @@ namespace CarRentalSystem
                 return;
             }
 
-            if (!int.TryParse(rentalDaysTextBox.Text, out int rentalDays) || rentalDays <= 0)
+            if (!int.TryParse(rentalDaysTextBox.Text, out int rentalDays))
             {
-                MessageBox.Show("Rental days must be a positive whole number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter a valid number for rental days.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -67,49 +78,26 @@ namespace CarRentalSystem
 
             try
             {
-                // Query 2: Find client by Email
-                var existingClient = await _context.Clients
-                                                   .TagWith("Find Client by Email")
-                                                   .FirstOrDefaultAsync(c => c.Email == emailTextBox.Text);
+                string name = nameTextBox.Text;
+                string email = emailTextBox.Text;
+                string passportDetails = passportTextBox.Text;
+                Guid carId = selectedCar.Id;
 
-                Client client;
-                if (existingClient != null)
-                {
-                    client = existingClient;
-                    client.Name = nameTextBox.Text;
-                    client.PassportDetails = passportTextBox.Text;
-                }
-                else
-                {
-                    client = new Client
-                    {
-                        Name = nameTextBox.Text,
-                        Email = emailTextBox.Text,
-                        PassportDetails = passportTextBox.Text
-                    };
-                    _context.Clients.Add(client);
-                    await _context.SaveChangesAsync();
-                }
-                // Query 3: Create new order and update car status
-                var newOrder = new Order
-                {
-                    ClientID = client.Id,
-                    Client = client,
-                    CarID = selectedCar.Id,
-                    RentedCar = selectedCar,
-                    RentalDays = rentalDays,
-                    TotalPrice = selectedCar.PricePerDay * rentalDays,
-                    Status = "Pending"
-                };
+                var client = _clientService.GetOrCreateClient(name, email, passportDetails);
 
-                _context.Orders.Add(newOrder);
-                _context.Cars.Update(selectedCar);
-                selectedCar.Status = "Rented";
-                await _context.SaveChangesAsync();
+                _orderService.CreateNewOrder(client, carId, rentalDays);
 
                 MessageBox.Show("Order successfully created! Car status updated to 'Rented'.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 LoadCarsToListView();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (DbUpdateException dbEx)
             {
@@ -132,12 +120,8 @@ namespace CarRentalSystem
             carsListView.Items.Clear();
             try
             {
-                var availableCars = await _context.Cars
-                                                  .TagWith("Get all available cars")
-                                                  .AsNoTracking()
-                                                  .Where(c => c.Status == "Available")
-                                                  .OrderBy(c => c.Model)
-                                                  .ToListAsync();
+                var availableCars = _carService.GetAllAvailableCars();
+
                 int itemNumber = 1;
                 foreach (var car in availableCars)
                 {

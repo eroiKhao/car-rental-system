@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using CarRentalSystem.Generic.Repositories;
+using CarRentalSystem.Models;
+using CarRentalSystem.Services;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ namespace CarRentalSystem.Views
     public partial class PaymentForm : MaterialForm
     {
         private readonly RentalCarContext _context;
+        private readonly OrderService _orderService;
         private ClientForm _clientForm;
         public PaymentForm(ClientForm clientForm)
         {
@@ -16,6 +19,12 @@ namespace CarRentalSystem.Views
 
             _context = new RentalCarContext();
             _clientForm = clientForm;
+
+            var carRepository = new Repository<Car>(_context);
+            var clientRepository = new Repository<Client>(_context);
+            var orderRepository = new Repository<Order>(_context);
+            _orderService = new OrderService(orderRepository, carRepository, clientRepository, _context);
+
             LoadPendingOrdersAsync();
 
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -43,11 +52,7 @@ namespace CarRentalSystem.Views
             {
                 ordersListView.Items.Clear();
 
-                var pendingOrders = await _context.Orders
-                    .FromSqlRaw("SELECT * FROM Orders WHERE Status = 'Pending'")
-                    .Include(o => o.Client)
-                    .Include(o => o.RentedCar)
-                    .ToListAsync();
+                var pendingOrders = _orderService.GetPendingOrders();
 
                 int itemNumber = 1;
 
@@ -95,24 +100,18 @@ namespace CarRentalSystem.Views
                 var selectedItem = ordersListView.SelectedItems[0];
                 Guid orderId = (Guid)selectedItem.Tag;
 
-                var order = await _context.Orders.FindAsync(orderId);
-                if (order == null)
-                {
-                    MessageBox.Show("Order not found.");
-                    return;
-                }
-
-                if (enteredAmount != order.TotalPrice)
-                {
-                    MessageBox.Show("Entered amount does not match the order total.");
-                    return;
-                }
-
-                order.Status = "Paid";
-                await _context.SaveChangesAsync();
+                await _orderService.PayOrder(orderId, enteredAmount);
 
                 MessageBox.Show("Payment completed successfully.");
                 await LoadPendingOrdersAsync();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             catch (Exception ex)
             {
