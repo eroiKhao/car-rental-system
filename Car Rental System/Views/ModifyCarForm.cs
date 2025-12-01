@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using CarRentalSystem.Main;
 using CarRentalSystem.Services;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -9,6 +10,7 @@ namespace CarRentalSystem.Views
     {
         private readonly CarService _carService;
         private readonly AdminForm _adminForm;
+        private CarViewModel _viewModel = new CarViewModel();
         public ModifyCarForm(
         CarService carService,
         AdminForm adminForm)
@@ -18,6 +20,21 @@ namespace CarRentalSystem.Views
             _carService = carService;
             _adminForm = adminForm;
 
+            modelTextBox.DataBindings.Add(
+            "Text",
+            _viewModel,
+            nameof(CarViewModel.Model),
+            true,
+            DataSourceUpdateMode.OnPropertyChanged
+        );
+            priceTextBox.DataBindings.Add(
+                "Text",
+                _viewModel,
+                nameof(CarViewModel.PricePerDay),
+                true,
+                DataSourceUpdateMode.OnPropertyChanged
+            );
+
             LoadCarsAsync();
 
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -26,24 +43,15 @@ namespace CarRentalSystem.Views
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Green500, Primary.Green700, Primary.Green200, Accent.LightGreen200, TextShade.WHITE);
         }
         private void backBtn_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            _adminForm.Show();
+        {   
             this.Close();
-        }
-        private void ModifyCarForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (_adminForm != null && !_adminForm.IsDisposed)
-            {
-                _adminForm.Show();
-            }
         }
         private async void addBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                string model = modelTextBox.Text;
-                decimal price = Convert.ToDecimal(priceTextBox.Text);
+                string model = _viewModel.Model;
+                decimal price = _viewModel.PricePerDay;
 
                 _carService.AddNewCar(model, price);
 

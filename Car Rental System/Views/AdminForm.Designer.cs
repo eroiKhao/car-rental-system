@@ -393,6 +393,7 @@
             Name = "AdminForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin Form";
+            FormClosed += AdminForm_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

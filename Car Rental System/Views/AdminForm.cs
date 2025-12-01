@@ -33,10 +33,8 @@ namespace CarRentalSystem.Views
         }
         private void modifyBtn_Click(object sender, EventArgs e)
         {
-            this.Hide();
             ModifyCarForm modifyCarForm = _formFactory.CreateForm<ModifyCarForm>();
             modifyCarForm.ShowDialog();
-            this.Show();
         }
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {

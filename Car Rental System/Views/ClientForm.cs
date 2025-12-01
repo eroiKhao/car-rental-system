@@ -36,6 +36,19 @@ namespace CarRentalSystem
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Green500, Primary.Green700, Primary.Green200, Accent.LightGreen200, TextShade.WHITE);
         }
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
+            }
+
+            base.OnFormClosed(e);
+
+            Application.Exit();
+        }
         private void adminBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -220,7 +233,6 @@ namespace CarRentalSystem
                 _cancellationTokenSource = null;
             }
         }
-
         private void cancelSearchBtn_Click(object sender, EventArgs e)
         {
             if (_cancellationTokenSource != null)

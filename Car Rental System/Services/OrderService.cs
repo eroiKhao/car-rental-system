@@ -9,6 +9,7 @@ namespace CarRentalSystem.Services
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Car> _carRepository;
         private readonly IRepository<Client> _clientRepository;
+
         private static int _concurrentCounter = 0;
         private static readonly object CounterLock = new object();
 

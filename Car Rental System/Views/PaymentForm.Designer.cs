@@ -152,6 +152,7 @@
             Name = "PaymentForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PaymentForm";
+            FormClosed += PaymentForm_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
