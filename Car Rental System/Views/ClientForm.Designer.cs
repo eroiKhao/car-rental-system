@@ -42,6 +42,9 @@
             nameTextBox = new MaterialSkin.Controls.MaterialTextBox();
             emailTextBox = new MaterialSkin.Controls.MaterialTextBox();
             payBtn = new MaterialSkin.Controls.MaterialButton();
+            searchCarBtn = new MaterialSkin.Controls.MaterialButton();
+            searchTextBox = new MaterialSkin.Controls.MaterialTextBox();
+            cancelSearchBtn = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // passportTextBox
@@ -87,7 +90,7 @@
             adminBtn.Depth = 0;
             adminBtn.HighEmphasis = true;
             adminBtn.Icon = Main.Properties.Resources.admin;
-            adminBtn.Location = new Point(584, 383);
+            adminBtn.Location = new Point(736, 366);
             adminBtn.Margin = new Padding(4, 6, 4, 6);
             adminBtn.MouseState = MaterialSkin.MouseState.HOVER;
             adminBtn.Name = "adminBtn";
@@ -242,11 +245,72 @@
             payBtn.UseVisualStyleBackColor = true;
             payBtn.Click += payBtn_Click;
             // 
+            // searchCarBtn
+            // 
+            searchCarBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            searchCarBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            searchCarBtn.Depth = 0;
+            searchCarBtn.HighEmphasis = true;
+            searchCarBtn.Icon = null;
+            searchCarBtn.Location = new Point(768, 159);
+            searchCarBtn.Margin = new Padding(4, 6, 4, 6);
+            searchCarBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            searchCarBtn.Name = "searchCarBtn";
+            searchCarBtn.NoAccentTextColor = Color.Empty;
+            searchCarBtn.Size = new Size(78, 36);
+            searchCarBtn.TabIndex = 10;
+            searchCarBtn.Text = "Search";
+            searchCarBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            searchCarBtn.UseAccentColor = false;
+            searchCarBtn.UseVisualStyleBackColor = true;
+            searchCarBtn.Click += searchCarBtn_Click;
+            // 
+            // searchTextBox
+            // 
+            searchTextBox.AnimateReadOnly = false;
+            searchTextBox.BorderStyle = BorderStyle.None;
+            searchTextBox.Depth = 0;
+            searchTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            searchTextBox.Hint = "Search for car";
+            searchTextBox.LeadingIcon = null;
+            searchTextBox.Location = new Point(736, 100);
+            searchTextBox.MaxLength = 50;
+            searchTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            searchTextBox.Multiline = false;
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.Size = new Size(146, 50);
+            searchTextBox.TabIndex = 11;
+            searchTextBox.Text = "";
+            searchTextBox.TrailingIcon = null;
+            // 
+            // cancelSearchBtn
+            // 
+            cancelSearchBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            cancelSearchBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            cancelSearchBtn.Depth = 0;
+            cancelSearchBtn.HighEmphasis = true;
+            cancelSearchBtn.Icon = null;
+            cancelSearchBtn.Location = new Point(768, 207);
+            cancelSearchBtn.Margin = new Padding(4, 6, 4, 6);
+            cancelSearchBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            cancelSearchBtn.Name = "cancelSearchBtn";
+            cancelSearchBtn.NoAccentTextColor = Color.Empty;
+            cancelSearchBtn.Size = new Size(77, 36);
+            cancelSearchBtn.TabIndex = 12;
+            cancelSearchBtn.Text = "Cancel";
+            cancelSearchBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            cancelSearchBtn.UseAccentColor = false;
+            cancelSearchBtn.UseVisualStyleBackColor = true;
+            cancelSearchBtn.Click += cancelSearchBtn_Click;
+            // 
             // ClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(748, 434);
+            ClientSize = new Size(895, 419);
+            Controls.Add(cancelSearchBtn);
+            Controls.Add(searchTextBox);
+            Controls.Add(searchCarBtn);
             Controls.Add(payBtn);
             Controls.Add(emailTextBox);
             Controls.Add(nameTextBox);
@@ -278,5 +342,8 @@
         private MaterialSkin.Controls.MaterialTextBox nameTextBox;
         private MaterialSkin.Controls.MaterialTextBox emailTextBox;
         private MaterialSkin.Controls.MaterialButton payBtn;
+        private MaterialSkin.Controls.MaterialButton searchCarBtn;
+        private MaterialSkin.Controls.MaterialTextBox searchTextBox;
+        private MaterialSkin.Controls.MaterialButton cancelSearchBtn;
     }
 }

@@ -46,7 +46,7 @@
             payBtn.Depth = 0;
             payBtn.HighEmphasis = true;
             payBtn.Icon = null;
-            payBtn.Location = new Point(7, 400);
+            payBtn.Location = new Point(294, 369);
             payBtn.Margin = new Padding(4, 6, 4, 6);
             payBtn.MouseState = MaterialSkin.MouseState.HOVER;
             payBtn.Name = "payBtn";
@@ -67,7 +67,7 @@
             moneyTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             moneyTextBox.Hint = "Total price";
             moneyTextBox.LeadingIcon = null;
-            moneyTextBox.Location = new Point(135, 397);
+            moneyTextBox.Location = new Point(107, 355);
             moneyTextBox.MaxLength = 50;
             moneyTextBox.MouseState = MaterialSkin.MouseState.OUT;
             moneyTextBox.Multiline = false;
@@ -85,7 +85,7 @@
             ordersListView.Columns.AddRange(new ColumnHeader[] { id, clientName, carModel, rentalDays, totalPrice });
             ordersListView.Depth = 0;
             ordersListView.FullRowSelect = true;
-            ordersListView.Location = new Point(7, 124);
+            ordersListView.Location = new Point(107, 79);
             ordersListView.MinimumSize = new Size(200, 100);
             ordersListView.MouseLocation = new Point(-1, -1);
             ordersListView.MouseState = MaterialSkin.MouseState.OUT;
@@ -144,7 +144,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(653, 465);
+            ClientSize = new Size(724, 465);
             Controls.Add(clientBtn);
             Controls.Add(ordersListView);
             Controls.Add(moneyTextBox);

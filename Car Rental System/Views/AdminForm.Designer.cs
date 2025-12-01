@@ -50,6 +50,7 @@
             currentPageLbl = new MaterialSkin.Controls.MaterialLabel();
             totalOrdersLbl = new MaterialSkin.Controls.MaterialLabel();
             clearBtn = new MaterialSkin.Controls.MaterialButton();
+            analyzeBtn = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // clientBtn
@@ -59,7 +60,7 @@
             clientBtn.Depth = 0;
             clientBtn.HighEmphasis = true;
             clientBtn.Icon = Main.Properties.Resources.home;
-            clientBtn.Location = new Point(7, 72);
+            clientBtn.Location = new Point(20, 72);
             clientBtn.Margin = new Padding(4, 6, 4, 6);
             clientBtn.MouseState = MaterialSkin.MouseState.HOVER;
             clientBtn.Name = "clientBtn";
@@ -79,13 +80,13 @@
             ordersListView.Columns.AddRange(new ColumnHeader[] { id, clientName, rentedCar, rentalDays, totalPrice, status, rejectionReason, createdAt });
             ordersListView.Depth = 0;
             ordersListView.FullRowSelect = true;
-            ordersListView.Location = new Point(19, 128);
+            ordersListView.Location = new Point(20, 138);
             ordersListView.MinimumSize = new Size(200, 100);
             ordersListView.MouseLocation = new Point(-1, -1);
             ordersListView.MouseState = MaterialSkin.MouseState.OUT;
             ordersListView.Name = "ordersListView";
             ordersListView.OwnerDraw = true;
-            ordersListView.Size = new Size(986, 260);
+            ordersListView.Size = new Size(1011, 250);
             ordersListView.TabIndex = 1;
             ordersListView.UseCompatibleStateImageBehavior = false;
             ordersListView.View = View.Details;
@@ -136,13 +137,14 @@
             searchBtn.Depth = 0;
             searchBtn.HighEmphasis = true;
             searchBtn.Icon = Main.Properties.Resources.search;
-            searchBtn.Location = new Point(285, 86);
+            searchBtn.Location = new Point(321, 93);
             searchBtn.Margin = new Padding(4, 6, 4, 6);
             searchBtn.MouseState = MaterialSkin.MouseState.HOVER;
             searchBtn.Name = "searchBtn";
             searchBtn.NoAccentTextColor = Color.Empty;
-            searchBtn.Size = new Size(64, 36);
+            searchBtn.Size = new Size(106, 36);
             searchBtn.TabIndex = 2;
+            searchBtn.Text = "Search";
             searchBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             searchBtn.UseAccentColor = false;
             searchBtn.UseVisualStyleBackColor = true;
@@ -156,7 +158,7 @@
             searchTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             searchTextBox.Hint = "Search by model/Client name";
             searchTextBox.LeadingIcon = null;
-            searchTextBox.Location = new Point(109, 72);
+            searchTextBox.Location = new Point(167, 81);
             searchTextBox.MaxLength = 50;
             searchTextBox.MouseState = MaterialSkin.MouseState.OUT;
             searchTextBox.Multiline = false;
@@ -173,7 +175,7 @@
             prevBtn.Depth = 0;
             prevBtn.HighEmphasis = true;
             prevBtn.Icon = Main.Properties.Resources.back;
-            prevBtn.Location = new Point(36, 397);
+            prevBtn.Location = new Point(20, 400);
             prevBtn.Margin = new Padding(4, 6, 4, 6);
             prevBtn.MouseState = MaterialSkin.MouseState.HOVER;
             prevBtn.Name = "prevBtn";
@@ -193,7 +195,7 @@
             nextBtn.Depth = 0;
             nextBtn.HighEmphasis = true;
             nextBtn.Icon = Main.Properties.Resources.forward;
-            nextBtn.Location = new Point(778, 397);
+            nextBtn.Location = new Point(941, 400);
             nextBtn.Margin = new Padding(4, 6, 4, 6);
             nextBtn.MouseState = MaterialSkin.MouseState.HOVER;
             nextBtn.Name = "nextBtn";
@@ -213,7 +215,7 @@
             modifyBtn.Depth = 0;
             modifyBtn.HighEmphasis = true;
             modifyBtn.Icon = Main.Properties.Resources.car;
-            modifyBtn.Location = new Point(887, 397);
+            modifyBtn.Location = new Point(900, 72);
             modifyBtn.Margin = new Padding(4, 6, 4, 6);
             modifyBtn.MouseState = MaterialSkin.MouseState.HOVER;
             modifyBtn.Name = "modifyBtn";
@@ -233,7 +235,7 @@
             deleteOrderBtn.Depth = 0;
             deleteOrderBtn.HighEmphasis = true;
             deleteOrderBtn.Icon = null;
-            deleteOrderBtn.Location = new Point(451, 397);
+            deleteOrderBtn.Location = new Point(130, 450);
             deleteOrderBtn.Margin = new Padding(4, 6, 4, 6);
             deleteOrderBtn.MouseState = MaterialSkin.MouseState.HOVER;
             deleteOrderBtn.Name = "deleteOrderBtn";
@@ -253,7 +255,7 @@
             approveOrderBtn.Depth = 0;
             approveOrderBtn.HighEmphasis = true;
             approveOrderBtn.Icon = null;
-            approveOrderBtn.Location = new Point(311, 397);
+            approveOrderBtn.Location = new Point(20, 450);
             approveOrderBtn.Margin = new Padding(4, 6, 4, 6);
             approveOrderBtn.MouseState = MaterialSkin.MouseState.HOVER;
             approveOrderBtn.Name = "approveOrderBtn";
@@ -273,7 +275,7 @@
             rejectOrderBtn.Depth = 0;
             rejectOrderBtn.HighEmphasis = true;
             rejectOrderBtn.Icon = null;
-            rejectOrderBtn.Location = new Point(904, 83);
+            rejectOrderBtn.Location = new Point(843, 400);
             rejectOrderBtn.Margin = new Padding(4, 6, 4, 6);
             rejectOrderBtn.MouseState = MaterialSkin.MouseState.HOVER;
             rejectOrderBtn.Name = "rejectOrderBtn";
@@ -294,12 +296,12 @@
             reasonTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             reasonTextBox.Hint = "Reason for rejection";
             reasonTextBox.LeadingIcon = null;
-            reasonTextBox.Location = new Point(724, 69);
+            reasonTextBox.Location = new Point(636, 398);
             reasonTextBox.MaxLength = 50;
             reasonTextBox.MouseState = MaterialSkin.MouseState.OUT;
             reasonTextBox.Multiline = false;
             reasonTextBox.Name = "reasonTextBox";
-            reasonTextBox.Size = new Size(173, 50);
+            reasonTextBox.Size = new Size(200, 50);
             reasonTextBox.TabIndex = 11;
             reasonTextBox.Text = "";
             reasonTextBox.TrailingIcon = null;
@@ -309,7 +311,7 @@
             currentPageLbl.AutoSize = true;
             currentPageLbl.Depth = 0;
             currentPageLbl.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            currentPageLbl.Location = new Point(463, 100);
+            currentPageLbl.Location = new Point(400, 400);
             currentPageLbl.MouseState = MaterialSkin.MouseState.HOVER;
             currentPageLbl.Name = "currentPageLbl";
             currentPageLbl.Size = new Size(37, 19);
@@ -321,7 +323,7 @@
             totalOrdersLbl.AutoSize = true;
             totalOrdersLbl.Depth = 0;
             totalOrdersLbl.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            totalOrdersLbl.Location = new Point(560, 100);
+            totalOrdersLbl.Location = new Point(500, 400);
             totalOrdersLbl.MouseState = MaterialSkin.MouseState.HOVER;
             totalOrdersLbl.Name = "totalOrdersLbl";
             totalOrdersLbl.Size = new Size(86, 19);
@@ -335,7 +337,7 @@
             clearBtn.Depth = 0;
             clearBtn.HighEmphasis = true;
             clearBtn.Icon = null;
-            clearBtn.Location = new Point(379, 86);
+            clearBtn.Location = new Point(435, 95);
             clearBtn.Margin = new Padding(4, 6, 4, 6);
             clearBtn.MouseState = MaterialSkin.MouseState.HOVER;
             clearBtn.Name = "clearBtn";
@@ -348,11 +350,32 @@
             clearBtn.UseVisualStyleBackColor = true;
             clearBtn.Click += clearBtn_Click;
             // 
+            // analyzeBtn
+            // 
+            analyzeBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            analyzeBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            analyzeBtn.Depth = 0;
+            analyzeBtn.HighEmphasis = true;
+            analyzeBtn.Icon = null;
+            analyzeBtn.Location = new Point(240, 450);
+            analyzeBtn.Margin = new Padding(4, 6, 4, 6);
+            analyzeBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            analyzeBtn.Name = "analyzeBtn";
+            analyzeBtn.NoAccentTextColor = Color.Empty;
+            analyzeBtn.Size = new Size(86, 36);
+            analyzeBtn.TabIndex = 15;
+            analyzeBtn.Text = "Analyze";
+            analyzeBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            analyzeBtn.UseAccentColor = false;
+            analyzeBtn.UseVisualStyleBackColor = true;
+            analyzeBtn.Click += analyzeBtn_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1051, 463);
+            ClientSize = new Size(1051, 497);
+            Controls.Add(analyzeBtn);
             Controls.Add(clearBtn);
             Controls.Add(totalOrdersLbl);
             Controls.Add(currentPageLbl);
@@ -398,5 +421,6 @@
         private MaterialSkin.Controls.MaterialLabel currentPageLbl;
         private MaterialSkin.Controls.MaterialLabel totalOrdersLbl;
         private MaterialSkin.Controls.MaterialButton clearBtn;
+        private MaterialSkin.Controls.MaterialButton analyzeBtn;
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading;
 using CarRentalSystem.Main;
 using CarRentalSystem.Models;
 using CarRentalSystem.Services;
@@ -14,6 +15,8 @@ namespace CarRentalSystem
         private readonly ClientService _clientService;
         private readonly OrderService _orderService;
         private readonly IFormFactory _formFactory;
+
+        private CancellationTokenSource? _cancellationTokenSource;
         public ClientForm(CarService carService,
         ClientService clientService,
         OrderService orderService,
@@ -166,6 +169,63 @@ namespace CarRentalSystem
             else
             {
                 selectedTextBox.Text = "Error getting selected car";
+            }
+        }
+
+        private async void searchCarBtn_Click(object sender, EventArgs e)
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            string searchTerm = searchTextBox.Text;
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                MessageBox.Show("Please enter a search term.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            carsListView.Items.Clear();
+            MessageBox.Show("Starting long-running search. Press 'Cancel Search' to stop.", "Searching...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            try
+            {
+                var foundCars = await _carService.SearchCarsExternalAsync(searchTerm, _cancellationTokenSource.Token);
+
+                int itemNumber = 1;
+                foreach (var car in foundCars)
+                {
+                    var item = new ListViewItem(itemNumber.ToString());
+                    item.SubItems.Add(car.Model);
+                    item.SubItems.Add(car.Status);
+                    item.SubItems.Add(car.PricePerDay.ToString("F2"));
+                    item.Tag = car;
+                    carsListView.Items.Add(item);
+                    itemNumber++;
+                }
+                MessageBox.Show($"Search completed. Found {foundCars.Count()} cars.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Search was canceled by user.", "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred during search: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
+            }
+        }
+
+        private void cancelSearchBtn_Click(object sender, EventArgs e)
+        {
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
             }
         }
     }

@@ -13,6 +13,21 @@ namespace CarRentalSystem.Services
             _context = context;
         }
 
+        public async Task<IEnumerable<Car>> SearchCarsExternalAsync(string searchTerm, CancellationToken cancellationToken)
+        {
+            Console.WriteLine($"Starting external search for: {searchTerm}");
+
+            await Task.Delay(5000, cancellationToken)
+                      .ConfigureAwait(false);
+
+            var availableCars = _carRepository.GetAll()
+                .Where(c => c.Model.ToLower().Contains(searchTerm.ToLower()) && c.Status == "Available")
+                .ToList();
+
+            Console.WriteLine("External search completed.");
+
+            return availableCars;
+        }
         public IEnumerable<Car> GetAllCars()
         {
             return _carRepository.GetAll();

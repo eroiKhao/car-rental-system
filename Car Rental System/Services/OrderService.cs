@@ -9,6 +9,8 @@ namespace CarRentalSystem.Services
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Car> _carRepository;
         private readonly IRepository<Client> _clientRepository;
+        private static int _concurrentCounter = 0;
+        private static readonly object CounterLock = new object();
 
         private readonly RentalCarContext _context;
 
@@ -22,6 +24,39 @@ namespace CarRentalSystem.Services
             _carRepository = carRepository;
             _clientRepository = clientRepository;
             _context = context;
+        }
+        public void CalculateTotalAnalytics(Action<int> callback)
+        {
+            _concurrentCounter = 0;
+
+            int taskCount = 10;
+            CountdownEvent countdown = new CountdownEvent(taskCount);
+
+            for (int i = 0; i < taskCount; i++)
+            {
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    long sum = 0;
+                    for (int j = 0; j < 100000000; j++)
+                    {
+                        sum += j;
+                    }
+
+                   lock (CounterLock)
+                    {
+                        _concurrentCounter += 10;
+                    }
+
+                    countdown.Signal();
+
+                }, null);
+            }
+
+            Task.Run(() =>
+            {
+                countdown.Wait();
+                callback(_concurrentCounter);
+            });
         }
 
         public IEnumerable<Order> GetAllOrders()

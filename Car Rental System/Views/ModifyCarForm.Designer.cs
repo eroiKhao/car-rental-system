@@ -212,7 +212,7 @@
             markAsAvailable.Depth = 0;
             markAsAvailable.HighEmphasis = true;
             markAsAvailable.Icon = null;
-            markAsAvailable.Location = new Point(561, 450);
+            markAsAvailable.Location = new Point(459, 450);
             markAsAvailable.Margin = new Padding(4, 6, 4, 6);
             markAsAvailable.MouseState = MaterialSkin.MouseState.HOVER;
             markAsAvailable.Name = "markAsAvailable";

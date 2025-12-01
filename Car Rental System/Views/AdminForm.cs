@@ -97,7 +97,7 @@ namespace CarRentalSystem.Views
                 MessageBox.Show("Please select an order to delete.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             Guid orderIdToDelete = (Guid)ordersListView.SelectedItems[0].Tag;
 
             try
@@ -271,6 +271,19 @@ namespace CarRentalSystem.Views
         {
             searchTextBox.Text = string.Empty;
             LoadAllOrders();
+        }
+
+        private void analyzeBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Starting complex analytics calculation in the thread pool...", "Analytics", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            _orderService.CalculateTotalAnalytics(finalCount =>
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    MessageBox.Show($"Analytics calculation finished. Final concurrent counter result: {finalCount}", "Analytics Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                });
+            });
         }
     }
 }
